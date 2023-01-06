@@ -124,4 +124,37 @@ label:checked {
 }
 
 
+.jumbotron {
+    min-height: 600px;
+    background-image: url(../images/cooking1.jpg);
+    background-size: cover;
+    padding-top: 0;
+    
+}
+
+.fl {
+    display: flex;
+    justify-content: flex-end;
+    color: black;
+}
+
+
+.display-4 {
+    margin-left: 400px;
+    margin-top: 100px;
+}
+
+.lead {
+    margin-left: 400px;
+}
+
+#navlink {
+    color: black;
+}
+
+#btnjumbo {
+    margin-left: 400px;
+    background-color: rgb(248, 86, 68);
+    border: none;
+}
 

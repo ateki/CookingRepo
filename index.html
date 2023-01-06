@@ -10,20 +10,294 @@
 </head>
 <body>
 
-    <div class="jumbotron jumbotron-fluid">
-        <nav class="n">
-          <div class="fl">
-           <a id="navlink" class="c nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-           <a id="navlink" class="c nav-item nav-link" href="#">About us</a>
-           <a id="navlink" class="c nav-item nav-link" href="#">Contact</a>
-          </div>
-       </nav> 
-        <div class="container">
-          <h1 class="display-4">Lorem, ipsum. <br> Lorem ipsum dolor sit amet.</h1>
-          <p class="lead"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates similique sapiente fugiat error tenetur odio incidunt excepturi dicta ullam, aut officiis voluptatum porro non natus vel maxime. Corporis, vel. </p>
-          <button type="button" id="btnjumbo" class="btn btn-primary">Start</button>
-        </div>
+  <div class="jumbotron jumbotron-fluid">
+    <nav class="n">
+      <div class="fl">
+       <a id="navlink" class="c nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+       <a id="navlink" class="c nav-item nav-link" href="#">About us</a>
+       <a id="navlink" class="c nav-item nav-link" href="#">Contact</a>
       </div>
+   </nav> 
+    <div class="container">
+      <h1 class="display-4">Lorem, ipsum. <br> Lorem ipsum dolor sit amet.</h1>
+      <p class="lead"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates similique sapiente fugiat error tenetur odio incidunt excepturi dicta ullam, aut officiis voluptatum porro non natus vel maxime. Corporis, vel. </p>
+      <button type="button" id="btnjumbo" class="btn btn-primary">Start</button>
+    </div>
+  </div>
+
+
+  <section class="section-recipe-search">
+    
+    <form id="search-form" class="form">
+    <div class="container-fluid" style="max-width: 1400px">
+
+        <!-- Row of Ingredients -->
+        <div class="row ingredients justify-content-md-center">
+            <div class="col-lg-12 pb-3 ingredients">
+                    <!-- <h2 id="ingredients-heading" class="mt-1 h3 form-label text-center">
+                      Ingredients 
+                    </h2> -->
+              <div class="card">
+                   <!--  <div class="row card-ingredients card-body justify-content-md-center"> -->
+                      <div class="card-body card-body-ingredients">
+                        <h5 class="card-header">Ingredients</h5>
+        
+                        <div class="container-fluid" style="max-width: 1400px">
+                          <div class="row">
+        
+                            <!-- Column 1 of ingredients -->
+                            <div class="card col-lg-4">
+                              <div class="card-body card-body-ingred1">
+                                <!-- Meat category -->
+                                <h5 class="card-title">Meat</h5>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkMeat">
+                                    <label class="form-check-label"  for="checkMeat">meat</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkLamb">
+                                    <label class="form-check-label"  for="checkLamb">lamb</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkChicken">
+                                    <label class="form-check-label"  for="checkChicken">Chicken</label>
+                                  </div>
+                                  <br>
+        
+                                  <!-- Fish category -->
+                                  <h5 class="card-title">Fish</h5>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkCod">
+                                    <label class="form-check-label"  for="checkCod">Cod</label>
+                                  </div>
+                                  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkSalmon">
+                                    <label class="form-check-label"  for="checkSalmon">Salmon</label>
+                                  </div>
+                                  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkPrawn">
+                                    <label class="form-check-label"  for="checkPrawn">Prawn</label>
+                                  </div>
+                                  
+                              </div>
+                            </div>
+                            
+                            <!-- Column 2 of ingredients -->
+                            <div class="card col-lg-4">
+                              <div class="card-body card-body-ingred2">
+                                
+                                  <!-- Carbs category -->
+                                  <h5 class="card-title">Carbs?</h5>
+                                  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkBread">
+                                    <label class="form-check-label"  for="checkBread">Bread</label>
+                                  </div>
+                                  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkPasta">
+                                    <label class="form-check-label"  for="checkPasta">Pasta</label>
+                                  </div>
+                                  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkPotatoes">
+                                    <label class="form-check-label"  for="checkPotatoes">Potatoes</label>
+                                  </div>
+                                  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkRice">
+                                    <label class="form-check-label"  for="checkRice">Rice</label>
+                                  </div>
+                              </div>
+                            </div>
+        
+                            <!-- Column 3 of ingredients -->
+                            <div class="card col-lg-4">
+                              <div class="card-body card-body-ingred3">
+                                  <!-- Veg sub category -->
+                                  <h5 class="card-title">Vegetables</h5>
+        
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkBrocoli">
+                                    <label class="form-check-label"  for="checkBrocoli">Brocoli</label>
+                                  </div>
+        
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkCarrots">
+                                    <label class="form-check-label"  for="checkCarrots">Carrots</label>
+                                    <img src=" https://spoonacular.com/cdn/ingredients_100x100/carrots.jpg" alt="carrots image" style="width:50px;height:40px">
+                                  </div>
+        
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkPeppers">
+                                    <label class="form-check-label"  for="checkPeppers">Peppers</label>
+                                  </div>
+         
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkOnions">
+                                    <label class="form-check-label"  for="checkOnions">Onions</label>
+                                  </div>                         
+                                  <br>
+                                  
+                                  <!-- Fruit sub category -->
+                                  <h5 class="card-title">Fruit</h5>
+        
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkApples">
+                                    <label class="form-check-label"  for="checkApples">Apples</label>
+                                    <img src=" https://spoonacular.com/cdn/ingredients_100x100/apple.jpg" alt="apple image" style="width:50px;height:40px">
+                                                           
+                                  </div>  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkBananas">
+                                    <label class="form-check-label"  for="checkBananas">Bananas</label>
+                                  </div>  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkKiwi">
+                                    <label class="form-check-label"  for="checkKiwi">Kiwi</label>
+                                  </div>  
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input"  type="checkbox" id="checkMelon">
+                                    <label class="form-check-label"  for="checkMelon">Melon</label>
+                                  </div>  
+                                  
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+        
+                        <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Temporary Placeholder for additional filters</h5>
+                              <p class="card-text">XXXXX Design in progress XXXXXXXX</p>
+                          </div>
+                        </div>
+        
+        
+                      </div>
+              </div>
+            </div>
+        </div>
+
+
+        <!-- Row of Additional Search Filters -->
+        <div class="section-filters card-deck">
+
+          <!-- Intolerances filters -->
+          <div class="card">
+            <div class="card-body card-body-filter">
+              <!-- <h5 class="card-title">Intolerances</h5> -->
+              <h5 class="card-header">Intolerances</h5>
+            
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchDairy">
+                <label class="custom-control-label" for="switchDairy">Dairy</label>
+              </div>
+              
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchEggs">
+                <label class="custom-control-label" for="switchEggs">Eggs</label>
+              </div>
+              
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchNuts">
+                <label class="custom-control-label" for="switchNuts">Nuts</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuisines filters -->
+          <div class="card">
+            <div class="card-body card-body-filter">
+              <h5 class="card-header">Cuisines</h5>
+              <!-- h5 class="card-title">Cuisines</h5> -->
+              
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchFrench">
+                <label class="custom-control-label" for="switchFrench">French</label>
+              </div>
+              
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchGreek">
+                <label class="custom-control-label" for="switchGreek">Greek</label>
+              </div>
+              
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="Italian">
+                <label class="custom-control-label" for="Italian">Italian</label>
+              </div>
+              
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchIndian">
+                <label class="custom-control-label" for="switchIndian">Indian</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diet filters -->
+          <div class="card">
+            <div class="card-body card-body-filter">
+              <h5 class="card-header">Diet</h5>
+
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchHalal">
+                <label class="custom-control-label" for="switchHalal">Halal</label>
+              </div>
+    
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchKosher">
+                <label class="custom-control-label" for="switchKosher">Kosher</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchVegan">
+                <label class="custom-control-label" for="switchVegan">Vegan</label>
+              </div>
+    
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switchVegetarian">
+                <label class="custom-control-label" for="switchVegetarian">Vegetarian</label>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Row for Search Button-->
+        <div class="row submit justify-content-md-center ">
+          <button type="submit" class="btn btn-primary rounded " id="search-button" aria-label="Find recipes">Find recipes</button>
+        </div>
+
+
+        
+
+    <hr class="hr receipe-search-hr" />
+
+    
+    <section class="results">
+      
+    </section>
+
+
+    </div> <!-- container-fluid-->
+
+  </form>
+  </section>
+
+
+ 
+
+
+
+
+
+
+    
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="assets/js/script.js"></script>
 
 </body>
 </html>

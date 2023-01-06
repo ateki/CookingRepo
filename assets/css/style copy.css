@@ -60,6 +60,58 @@ label:checked {
 
 
 
+/* TODO: Attempted to change color of carrow with custom class  */
+/* .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #333 !important;
+    border-color: orange !important;
+} */
+
+/*
+input[type="checkbox"]::after {
+    background-color: yellow !important;
+}
+  
+//This works for switch checkbox
+input[type="checkbox"] + label::before {
+    border-radius: 4px;
+    background-color: green !important;
+}
+   */
+
+/* input[type="checkbox" i] {
+    background-color: red !important;
+} */
+
+
+/* NOTES
+text-align: center;
+text-align: justify;    // each line is equal 
+verticle-align: text-top;
+
+? How to change colour of checkbox/switch check?
+TODO Change colour of selected label
+
+? Ideas re better format?  Carosel of options?
+? Extend - grab all 
+
+
+Add as another task - extended 
+
+Poss future extension:
+
+? 
+? Design for more options categorised into 
+- diff tabs perhaps
+- carosel of options
+
+
+*/
+
+/* text-align: center;
+text-align: justify;    // each line is equal 
+verticle-align: text-top;
+ */
+
 
 /* CUSTOM */
 .btn-primary:hover, .btn-primary:active /* , .btn-primary:visited */ {
@@ -73,12 +125,29 @@ label:checked {
     margin: 10px;
 } 
 
+
+
+
 .section-recipe-search {
     background-color: var(--body-background) !important;
 }
 
 /* TODO: Overwrite colour of checkboxes */
 
+/* input[type=checkbox] {
+    cursor: pointer;
+ }
+
+input[type=checkbox]:after {
+ content: " ";
+ background-color: #D7B1D7;
+ display: inline-block;
+ visibility: visible;
+}
+
+input[type=checkbox]:checked:after {
+  content: "\2714";
+} */
 
 /* Atempt to change colour of checkboxes/switch boxes */
 .custom-control-input:checked {

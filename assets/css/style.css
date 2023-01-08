@@ -48,7 +48,9 @@ body {
   } 
   
 
-
+div.row {
+    margin: 10px;
+}
 
 label {
     color: green !important;
@@ -133,15 +135,14 @@ label:checked {
     color: white;  */
     color:var(--primary-dark);
     background-color: white;
-    border: 5px dotted var(--primary-dark);
+    border: 7px dotted var(--primary-dark);
     border-block-color: var(--primary-light);
 
 } 
 
 .card-body-ingredients {
-    border: 5px dotted var(--primary-dark);
-    border-block-color: var(--primary-light);
-
+    border: 7px dotted var(--secondary-dark);
+    border-block-color: var(--primary-dark); 
 }
 
 .recipe-search-hr {

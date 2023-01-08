@@ -10,12 +10,12 @@
 
     
     --primary-light: rgb(243, 229, 204); /* will be used for light section of header and search button */
-    --primary-dark: rgb(254, 194, 82); /* will be used for dark section of header and background of cards */ 
+    --primary-dark: #fec252; /* will be used for dark section of header and background of cards */ 
    
    /*  --secondary-color: rgb(195, 197, 206); */
     --secondary-light: rgb(246, 189, 189);
     /* --secondary-dark:rgb(195, 197, 206); */
-    --secondary-dark:rgb(248, 86, 68);
+    --secondary-dark:#f85644;
 
     --font-dark: rgb(91, 137, 120);
     --font-light: white;
@@ -47,6 +47,8 @@ body {
     background-color: var(--body-background) !important;
   } 
   
+
+
 
 label {
     color: green !important;
@@ -146,6 +148,14 @@ label:checked {
     color: var(--secondary-dark);
 }
 
+
+.card-recipe {
+   
+   /* border: 5px dotted var(--primary-dark) !important; */
+    border-block-color: var(--primary-light) !important;
+    /* background-color: var(--body-background) !important; */
+    background-color: var(--secondary-dark) !important;
+  }
 
 .jumbotron {
     min-height: 600px;

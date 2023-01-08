@@ -55,6 +55,10 @@
       </div>
     </div>
 
+    <div id="quoteContainer">
+      <p id="quote"></p>
+    </div>
+
     <!-- a Call To Action div asking user to sign up so they can refine their search. This will not appear if the user has signed in. the id's are important as are the data-toggle and data-target attributes for the button. everything else can change in terms of style and layout -->
     <div class="container-fluid text-center py-3" id="cta-panel">
       <h5>Sign-up to refine your search!</h5>
@@ -343,24 +347,44 @@
 
           <!-- Row of Additional Search Filters -->
           <!-- <div class="section-filters card-deck">
-
             <div class="card">
               <div class="card-body card-body-filter">
                 <h5 class="card-header">Intolerances</h5>
-              
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="intoleranceDairy" value="dairy">
-                  <label class="custom-control-label" for="intoleranceDairy">dairy</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="intoleranceDairy"
+                    value="dairy"
+                  />
+                  <label class="custom-control-label" for="intoleranceDairy"
+                    >dairy</label
+                  >
                 </div>
-                
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="intoleranceEggs" value="eggs">
-                  <label class="custom-control-label" for="intoleranceEggs">eggs</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="intoleranceEggs"
+                    value="eggs"
+                  />
+                  <label class="custom-control-label" for="intoleranceEggs"
+                    >eggs</label
+                  >
                 </div>
-                
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="intoleranceNuts" value="nuts">
-                  <label class="custom-control-label" for="intoleranceNuts">nuts</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="intoleranceNuts"
+                    value="nuts"
+                  />
+                  <label class="custom-control-label" for="intoleranceNuts"
+                    >nuts</label
+                  >
                 </div>
               </div>
             </div>
@@ -368,25 +392,53 @@
             <div class="card">
               <div class="card-body card-body-filter">
                 <h5 class="card-header">Cuisines</h5>
-                
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="cuisineFrench" value="French">
-                  <label class="custom-control-label" for="cuisineFrench">French</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="cuisineFrench"
+                    value="French"
+                  />
+                  <label class="custom-control-label" for="cuisineFrench"
+                    >French</label
+                  >
                 </div>
-                
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="cuisineGreek" value="Greek">
-                  <label class="custom-control-label" for="cuisineGreek">Greek</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="cuisineGreek"
+                    value="Greek"
+                  />
+                  <label class="custom-control-label" for="cuisineGreek"
+                    >Greek</label
+                  >
                 </div>
-                
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="cuisineItalian" value="Italian">
-                  <label class="custom-control-label" for="cuisineItalian">Italian</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="cuisineItalian"
+                    value="Italian"
+                  />
+                  <label class="custom-control-label" for="cuisineItalian"
+                    >Italian</label
+                  >
                 </div>
-                
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="cuisineIndian" value="Indian">
-                  <label class="custom-control-label" for="cuisineIndian">Indian</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="cuisineIndian"
+                    value="Indian"
+                  />
+                  <label class="custom-control-label" for="cuisineIndian"
+                    >Indian</label
+                  >
                 </div>
               </div>
             </div>
@@ -396,24 +448,51 @@
                 <h5 class="card-header">Diet</h5>
 
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="dietHalal" value="Halal">
-                  <label class="custom-control-label" for="dietHalal">Halal</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="dietHalal"
+                    value="Halal"
+                  />
+                  <label class="custom-control-label" for="dietHalal"
+                    >Halal</label
+                  >
                 </div>
-      
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="dietKosher" value="Kosher">
-                  <label class="custom-control-label" for="dietKosher">Kosher</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="dietKosher"
+                    value="Kosher"
+                  />
+                  <label class="custom-control-label" for="dietKosher"
+                    >Kosher</label
+                  >
                 </div>
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="dietVegan" value="Vegan">
-                  <label class="custom-control-label" for="dietVegan">Vegan</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="dietVegan"
+                    value="Vegan"
+                  />
+                  <label class="custom-control-label" for="dietVegan"
+                    >Vegan</label
+                  >
                 </div>
-      
+
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="dietVegetarian" value="Vegetarian">
-                  <label class="custom-control-label" for="dietVegetarian">Vegetarian</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="dietVegetarian"
+                    value="Vegetarian"
+                  />
+                  <label class="custom-control-label" for="dietVegetarian"
+                    >Vegetarian</label
+                  >
                 </div>
-              
               </div>
             </div>
           </div> -->

@@ -32,7 +32,25 @@ function pullUserData() {
   $('#signUpModal').html('');
 }
 
-/***************************** delete **************************************/
+function getSearchOptions(ingredientsArray) {
+  // initialise an empty object
+  var searchObj = {};
+
+  // if user exists, add their prefs to search
+  if (Object.keys(userData).length > 0) {
+    Object.assign(searchObj, userData);
+    delete searchObj.name;
+    delete searchObj.favourites;
+  }
+
+  searchObj.includeIngredients = ingredientsArray.join(',');
+
+  searchObj.apiKey = API_KEY;
+
+  return searchObj;
+}
+
+/***************************** delete below **************************************/
 // // Function to run on page load
 // function init() {
 //   pullUserData();
@@ -79,7 +97,7 @@ function pullUserData() {
 // }
 
 // init();
-/***************************** delete **************************************/
+/***************************** delete above **************************************/
 
 /**-------------------------------------------------------------
  *
@@ -307,17 +325,22 @@ function getFilteredRecipes(eventObj) {
   var cuisines = getUsersCuisinePrefs();
   var diets = getUsersDietPrefs();
 
-  // adding user prefs to URL
-  if (userData)
-    // TODO: validate user input and provide feedback if necessary
+  // TODO: validate user input and provide feedback if necessary
+  if (ingredients.length === 0) {
+    alert('please select at least one option');
+    return;
+  }
 
-    // API call and display
-    var URL = `${URL_COMPLEX_SEARCH}&includeIngredients=${ingredients.join(
-      ', '
-    )}`;
-  console.log(URL);
+  var searchOptions = getSearchOptions(ingredients);
+  console.log(searchOptions);
 
-  $.get(`${URL}`).then(function (data) {
+  // API call and display
+  // var URL = `${URL_COMPLEX_SEARCH}&includeIngredients=${ingredients.join(
+  //   ', '
+  // )}`;
+  // console.log(URL);
+  // $.get(`${URL}`).then(function (data) {
+  $.get(`${URL_ROOT}${ENDPOINT}`, searchOptions).then(function (data) {
     console.log(data);
     displayRecipeResults(data.results);
   });

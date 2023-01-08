@@ -138,6 +138,16 @@ const ENDPOINT = '/recipes/complexSearch';
 const URL_ROOT = 'https://api.spoonacular.com';
 const URL_COMPLEX_SEARCH = `${URL_ROOT}${ENDPOINT}/?apiKey=${API_KEY}`;
 
+
+/* QUOTE API INFO */
+// Quotes API
+const QUOTE_API_KEY = 'G7WSJKvp0JWC+uwIDsPbcw==JgAbmTJn20cHUWLX';
+const URL_GET_QUOTE = 'https://api.api-ninjas.com/v1/quotes?category=food';
+
+
+
+
+
 /* Note of other poss APIs:
 1) recipe card
 const ENDPOINT_GET_RECIPE_CARD =`/recipes/${id}/card`; 
@@ -401,6 +411,39 @@ function setupEventListeners() {
   });
 }
 
+
+
+
+/** ----------------------------------------
+ * QUOTE Functionality
+ * -----------------------------------------*/
+
+function displayQuote(quote,author) {
+
+    var quoteOut = document.querySelector('#quote');
+    quoteOut.textContent = quote + "  " + "-" + "  "   + author;
+}
+
+
+function getCookingQuote() {
+
+    $.ajax({
+        headers: {
+          'X-Api-Key': QUOTE_API_KEY,
+        },
+        url: URL_GET_QUOTE,
+      }).then(function (data) {
+        var quote = data[0].quote;
+        var author = data[0].author;
+      
+        console.log(quote, author);
+      
+        displayQuote(quote, author);
+ 
+      });
+}
+
+
 /** ----------------------------------------
  * Init onload functionality - to be triggered on page load.
  * -----------------------------------------*/
@@ -410,25 +453,12 @@ function init() {
   hide(recipeResultsSection); // ensure no results currently shown
 
   pullUserData();
+  getCookingQuote();
 }
 
 init();
 
-// Quotes API
-var apiKey = 'G7WSJKvp0JWC+uwIDsPbcw==JgAbmTJn20cHUWLX';
-var apiURL = 'https://api.api-ninjas.com/v1/quotes?category=food';
 
-$.ajax({
-  headers: {
-    'X-Api-Key': apiKey,
-  },
-  url: apiURL,
-}).then(function (data) {
-  var quote = data[0].quote;
-  var author = data[0].author;
 
-  console.log(quote, author);
 
-  var quoteOut = document.querySelector('#quote');
-  quoteOut.textContent = quote + "  " + "-" + "  "   + author;
-});
+

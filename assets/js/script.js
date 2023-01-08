@@ -47,6 +47,8 @@ function getSearchOptions(ingredientsArray) {
 
   searchObj.apiKey = API_KEY;
 
+  searchObj.addRecipeInformation = true;
+
   return searchObj;
 }
 
@@ -302,6 +304,7 @@ function displayRecipeResults(matchedRecipes) {
                     <h5 class="card-title">${matchObj.id}</h5>
                     <p class="card-text">Can we get some brief recipe description</p>
                     <a href="https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY}" class="card-link">RecipeCard link</a>
+                    <a href="${matchObj.spoonacularSourceUrl}" target="_blank">Recipe link</a>
                     </div>
                 </div>
             `);

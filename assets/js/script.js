@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 /**-------------------------------------------------------------
  * 
  * Filename: script.js
@@ -301,11 +300,6 @@ function init() {
 
 init();
 
-
-
-
-=======
-
 // Quotes API
 var apiKey = 'G7WSJKvp0JWC+uwIDsPbcw==JgAbmTJn20cHUWLX';
 var apiURL = 'https://api.api-ninjas.com/v1/quotes?category=food';
@@ -325,5 +319,6 @@ $.ajax({
 var quoteOut = document.querySelector('#quote');
 quoteOut.textContent = quote;
 });
->>>>>>> test
+
+
 

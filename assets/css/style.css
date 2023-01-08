@@ -191,3 +191,18 @@ label:checked {
     border: none;
 }
 
+/**** Shiv's CSS ****/
+
+.hide {
+  display: none;
+}
+
+/* remove below and replace with own styles */
+#cta-panel {
+  padding-top: 100px !important;
+  padding-bottom: 100px !important;
+}
+
+#signUpModal label {
+  color: black !important;
+}

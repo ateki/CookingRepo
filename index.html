@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rochester&display=swap" rel="stylesheet">
     <title>Cooking App</title>
   </head>
   <body>
@@ -34,14 +35,15 @@
       </nav>
       <div class="container">
         <h1 class="display-4">
-          Welcome<span id="name-header-text"></span>! <br />
-          Lorem ipsum dolor sit amet.
+          Welcome!<span id="name-header-text"></span> <br />
+          <div id="slogan">Simple and fast recipe inspiration! <br />
+          <div id="slogandetail">Use our basic search to browse recipes by ingredients, or sign up to get recipes tailored to your specific dietary requirements!  </div>
+        </div>
         </h1>
         <p class="lead">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-          voluptates similique sapiente fugiat error tenetur odio incidunt
-          excepturi dicta ullam, aut officiis voluptatum porro non natus vel
-          maxime. Corporis, vel.
+          <div id="quoteContainer">
+            <p id="quote"></p>
+          </div>
         </p>
         <button
           type="button"
@@ -50,14 +52,13 @@
           onclick="location.href='#anchor-find-recipes'"
           aria-label="Start searching for recipes"
         >
-          Start
+          Start browsing
         </button>
       </div>
+      
     </div>
 
-    <div id="quoteContainer">
-      <p id="quote"></p>
-    </div>
+   
 
     <!-- a Call To Action div asking user to sign up so they can refine their search. This will not appear if the user has signed in. the id's are important as are the data-toggle and data-target attributes for the button. everything else can change in terms of style and layout -->
     <div class="container-fluid text-center py-3" id="cta-panel">

@@ -430,5 +430,5 @@ $.ajax({
   console.log(quote, author);
 
   var quoteOut = document.querySelector('#quote');
-  quoteOut.textContent = quote;
+  quoteOut.textContent = quote + "  " + "-" + "  "   + author;
 });

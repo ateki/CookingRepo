@@ -158,6 +158,13 @@ label:checked {
     background-color: var(--secondary-dark) !important;
   }
 
+  .recipe-results {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
 .jumbotron {
     min-height: 600px;
     background-image: url(../images/cooking1.jpg);

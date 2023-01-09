@@ -4,14 +4,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootstrap -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rochester&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rochester&display=swap" rel="stylesheet">
     <title>Cooking App</title>
   </head>
   <body>
@@ -35,16 +50,20 @@
       </nav>
       <div class="container">
         <h1 class="display-4">
-          Welcome!<span id="name-header-text"></span> <br />
-          <div id="slogan">Simple and fast recipe inspiration! <br />
-          <div id="slogandetail">Use our basic search to browse recipes by ingredients, or sign up to get recipes tailored to your specific dietary requirements!  </div>
-        </div>
-        </h1>
-        <p class="lead">
-          <div id="quoteContainer">
-            <p id="quote"></p>
+          Welcome<span id="name-header-text"></span>! <br />
+          <div id="slogan">
+            Simple and fast recipe inspiration! <br />
+            <div id="slogandetail">
+              Use our basic search to browse recipes by ingredients, or sign up
+              to get recipes tailored to your specific dietary requirements!
+            </div>
           </div>
-        </p>
+        </h1>
+
+        <div id="quoteContainer">
+          <p id="quote"></p>
+        </div>
+
         <button
           type="button"
           id="btnjumbo"
@@ -55,10 +74,7 @@
           Start browsing
         </button>
       </div>
-      
     </div>
-
-   
 
     <!-- a Call To Action div asking user to sign up so they can refine their search. This will not appear if the user has signed in. the id's are important as are the data-toggle and data-target attributes for the button. everything else can change in terms of style and layout -->
     <div class="container-fluid text-center py-3" id="cta-panel">
@@ -515,7 +531,117 @@
       </form>
     </section>
 
-    <section class="recipe-results"></section>
+    <section id="recipe-results">
+      <div class="container">
+        <h1 class="text-center">Results</h1>
+
+        <div class="row">
+          <div class="card col-lg-3 col-md-4 col-sm-12">
+            <img
+              src="https://spoonacular.com/recipeImages/664929-312x231.png"
+              class="card-img-top"
+              alt="image of food"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Walnut Lentil Burgers with Tarragon</h5>
+              <!-- <p class="card-text">
+                The recipe Walnut Lentil Burgers with Tarragon is ready in
+                around around 45 minutes and is definitely an awesome gluten
+                free, dairy free, and lacto ovo vegetarian option for lovers of
+                American food.
+              </p> -->
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Includes:</strong> cooked green lentils, button
+                mushrooms
+              </li>
+              <li class="list-group-item">
+                <strong>Diets:</strong> vegetarian, vegan
+              </li>
+              <li class="list-group-item"><strong>Serves:</strong> 4</li>
+              <li class="list-group-item">
+                <strong>Cooking time:</strong> 45 mins
+              </li>
+            </ul>
+            <div
+              class="card-body row align-items-center justify-content-between recipe-link-section"
+            >
+              <a
+                href="https://spoonacular.com/walnut-lentil-burgers-with-tarragon-664929"
+                class="card-link"
+                target="_blank"
+                >View recipe</a
+              >
+              <i class="far fa-star favourite-icon-hollow"></i>
+            </div>
+          </div>
+
+          <div class="card col-lg-3 col-md-4 col-sm-12">
+            <img
+              src="https://spoonacular.com/recipeImages/661121-312x231.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Spicy Lemongrass Soup</h5>
+              <!-- <p class="card-text">
+                Spicy Lemongrass Soup requires roughly about 45 minutes from
+                start to finish.
+              </p> -->
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">mushrooms</li>
+              <li class="list-group-item">rice noodles</li>
+              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">Add to planner</a>
+              <a
+                href="https://spoonacular.com/spicy-lemongrass-soup-661121"
+                class="card-link"
+                target="_blank"
+                >View recipe</a
+              >
+            </div>
+          </div>
+
+          <div class="card col-lg-3 col-md-4 col-sm-12">
+            <img
+              src="https://spoonacular.com/recipeImages/655570-312x231.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                Penne Con Funghi E Melanzane (Penne With Mushrooms and Eggplant)
+              </h5>
+              <!-- <p class="card-text">
+                Penne Con Funghi E Melanzane (Penne With Mushrooms and Eggplant)
+                might be just the main course you are searching for.
+              </p> -->
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>lacto ovo vegetarian</strong>
+              </li>
+              <li class="list-group-item">mushrooms</li>
+              <li class="list-group-item">penne</li>
+              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">Add to planner</a>
+              <a
+                href="https://spoonacular.com/penne-con-funghi-e-melanzane-penne-with-mushrooms-and-eggplant-655570"
+                class="card-link"
+                target="_blank"
+                >View recipe</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- modal -->
     <div

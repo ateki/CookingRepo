@@ -215,10 +215,31 @@ label:checked {
 
 /* remove below and replace with own styles */
 #cta-panel {
-  padding-top: 100px !important;
-  padding-bottom: 100px !important;
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
 }
 
 #signUpModal label {
-  color: black !important;
+    color: black !important;
+}
+
+#recipe-results .container {
+    max-width: 1400px !important;
+}
+
+#recipe-results .card-body {
+    padding: 10px 0px 10px 0px !important;
+}
+
+#recipe-results .list-group-item {
+    padding: 0.75rem 10px !important;
+}
+
+#recipe-results .recipe-link-section i {
+    font-size: 1.3rem;
+    color: #cdae00;
+}
+#recipe-results .recipe-link-section i:hover {
+    cursor: pointer;
+    color: #e4c412;
 }

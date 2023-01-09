@@ -530,9 +530,12 @@
       </form>
     </section>
 
-    <section id="recipe-results">
+    <section class="recipe-results"></section>
+
+    <section id="dummy-recipe-results">
       <div class="container">
-        <h1 class="text-center">Results</h1>
+        <h1 class="text-center">Dummy Results</h1>
+        <p class="text-center">Comment this out!</p>
 
         <div class="row">
           <div class="card col-lg-3 col-md-4 col-sm-6 my-2">
@@ -892,6 +895,53 @@
         </div>
       </div>
     </div>
+    <footer>
+      <div id="formContainer">
+        <form id="footer">
+          <div class="form-group">
+            <h3 class="co">Get in touch!</h3>
+            <label for="exampleInputEmail1" class="formLabel"
+              >Email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1" class="formLabel"
+              >Your message</label
+            >
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="9"
+            ></textarea>
+          </div>
+          <button type="submit" id="contactbtn" class="btn btn-primary">
+            Submit
+          </button>
+          <div id="icons">
+            <a class="socialLMedia" href="https://linkedin.com">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a class="socialLMedia" href="https://github.com/ateki/CookingRepo">
+              <i class="fab fa-github"></i>
+            </a>
+            <a class="socialLMedia" href="https://instagram.com">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <p id="copyright">CookingApp &copy 2023 - All rights reserved</p>
+          </div>
+        </form>
+      </div>
+    </footer>
 
     <!-- jquery -->
     <script

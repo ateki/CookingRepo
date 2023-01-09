@@ -162,6 +162,13 @@ label:checked {
     background-color: var(--secondary-dark) !important;
   }
 
+  .recipe-results {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
 .jumbotron {
     min-height: 600px;
     background-image: url(../images/cooking1.jpg);
@@ -229,30 +236,30 @@ label:checked {
 }
 
 /** results section **/
-#recipe-results .container {
+#dummy-recipe-results .container {
     max-width: 1400px !important;
 }
 
-#recipe-results .card-body {
+#dummy-recipe-results .card-body {
     padding: 10px 0px 10px 0px !important;
 }
 
-#recipe-results .list-group-item {
+#dummy-recipe-results .list-group-item {
     padding: 0.75rem 10px !important;
 }
 
-#recipe-results .recipe-link-section i {
+#dummy-recipe-results .recipe-link-section i {
     font-size: 1.4rem;
     color: #cdae00;
 }
-#recipe-results .recipe-link-section i:hover {
+#dummy-recipe-results .recipe-link-section i:hover {
     cursor: pointer;
     color: #e4c412;
 }
-#recipe-results a.card-link {
+#dummy-recipe-results a.card-link {
     border-bottom: 2px dashed #007bff;
 }
-#recipe-results a.card-link:hover {
+#dummy-recipe-results a.card-link:hover {
     border-bottom: 2px dashed #0056b3;
 }
 
@@ -311,3 +318,62 @@ form.card-body-filter {
     border-bottom: 2px dashed #f6af2c;;
     text-decoration: none;
 }
+
+/* footer styling */
+
+#footer {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    margin-top: 100px;
+    background-color: rgb(237, 235, 235);
+    padding: 5px;
+     
+}
+
+#formContainer {
+    background-color: rgb(237, 235, 235);
+    padding-bottom: 20px;
+    
+}
+
+#contactbtn {
+    background-color: #f6af2c;
+    border: none;
+    
+}
+
+#copyright {
+    text-align: center;
+    font-size: xx-small;
+    color: rgb(248, 86, 68);
+    
+}
+
+.co {
+    text-align: center;
+    color: #f6af2c;
+    
+}
+
+#icons {
+    text-align: center;
+    color: rgb(248, 86, 68);
+}
+
+#exampleFormControlTextarea1 {
+    border-color: #f6af2c;
+}
+
+#exampleInputEmail1 {
+    border-color: #f6af2c;
+}
+
+.formLabel {
+    color: #f6af2c;
+}
+
+.socialLMedia {
+    color: rgb(248, 86, 68);
+}
+

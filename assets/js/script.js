@@ -22,11 +22,20 @@ function pullUserData() {
     .attr('href', 'favourites.html')
     .removeAttr('data-toggle data-target');
 
-  // hide the cta panel
-  $('#cta-panel').addClass('hide');
+  // change button area in jumbotron
+  $('.jumbo-buttons').html('');
+  $('.jumbo-buttons').append(`
+  <a
+    class="btn btn-primary"
+    href="#section-recipe-search"
+    style="margin-left:0"
+  >
+    Get Searching!
+  </a>
+  `);
 
   // show user's name in jumbotron
-  $('#name-header-text').text(`, ${userData.name}`);
+  $('#name-header-text').text(`Welcome, ${userData.name}!`);
 
   // clear modal html
   $('#signUpModal').html('');

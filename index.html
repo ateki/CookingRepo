@@ -49,50 +49,49 @@
         </div>
       </nav>
       <div class="container">
-        <h1 class="display-4">
-          Welcome<span id="name-header-text"></span>! <br />
-          <div id="slogan">
-            Simple and fast recipe inspiration! <br />
-            <div id="slogandetail">
-              Use our basic search to browse recipes by ingredients, or sign up
-              to get recipes tailored to your specific dietary requirements!
-            </div>
+        <h1 class="display-4" id="name-header-text">Welcome!</h1>
+        <br />
+        <div id="slogan">
+          Simple and fast recipe inspiration! <br />
+          <div id="slogandetail">
+            Use our basic search to browse recipes by ingredients, or sign up to
+            get recipes tailored to your specific dietary requirements!
           </div>
-        </h1>
+        </div>
+
+        <div class="jumbo-buttons row align-items-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#signUpModal"
+            id="cta-button"
+          >
+            Sign-up Now!
+          </button>
+          <span id="lowkey-link"
+            >&nbsp;&nbsp;<a href="#section-recipe-search"
+              >Get Searching</a
+            ></span
+          >
+          <!-- <button
+            type="button"
+            id="btnjumbo"
+            class="btn btn-primary"
+            onclick="location.href='#anchor-find-recipes'"
+            aria-label="Start searching for recipes"
+          >
+            Or Get Searching
+          </button> -->
+        </div>
 
         <div id="quoteContainer">
           <p id="quote"></p>
         </div>
-
-        <button
-          type="button"
-          id="btnjumbo"
-          class="btn btn-primary"
-          onclick="location.href='#anchor-find-recipes'"
-          aria-label="Start searching for recipes"
-        >
-          Start browsing
-        </button>
       </div>
     </div>
 
-    <!-- a Call To Action div asking user to sign up so they can refine their search. This will not appear if the user has signed in. the id's are important as are the data-toggle and data-target attributes for the button. everything else can change in terms of style and layout -->
-    <div class="container-fluid text-center py-3" id="cta-panel">
-      <h5>Sign-up to refine your search!</h5>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#signUpModal"
-        id="cta-button"
-      >
-        Sign-up Now!
-      </button>
-    </div>
-
-    <section class="section-recipe-search">
-      <a name="anchor-find-recipes"></a>
-
+    <section class="section-recipe-search" id="section-recipe-search">
       <form id="search-form">
         <div class="container-fluid" style="max-width: 1400px">
           <!-- Row of Ingredients -->
@@ -624,7 +623,7 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header card-header">
             <h5 class="modal-title" id="signUpLabel">Sign-Up Form</h5>
             <button
               type="button"
@@ -637,10 +636,10 @@
           </div>
           <div class="modal-body">
             <!-- modal form -->
-            <form>
+            <form class="card-body-filter">
               <!-- form fields -->
               <div class="form-group">
-                <label for="name">Name</label>
+                <label class="modal-group-title" for="name">Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -651,7 +650,7 @@
               </div>
 
               <div class="form-group" id="intolerances-group">
-                <label>Intolerances</label>
+                <label class="modal-group-title">Intolerances</label>
                 <div class="row">
                   <div class="col">
                     <div class="form-check">
@@ -725,7 +724,7 @@
               </div>
 
               <div class="form-group" id="cuisine-group">
-                <label>Preferred Cuisines</label>
+                <label class="modal-group-title">Preferred Cuisines</label>
                 <div class="row">
                   <div class="col">
                     <div class="form-check">
@@ -799,7 +798,7 @@
               </div>
 
               <div class="form-group" id="diet-group">
-                <label>Diets subscribed to</label>
+                <label class="modal-group-title">Diets subscribed to</label>
                 <div class="row">
                   <div class="col">
                     <div class="form-check">
@@ -875,7 +874,12 @@
               </div>
 
               <!-- submit and close buttons -->
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button
+                type="submit"
+                class="justify-center btn btn-primary btn-lg mx-auto d-flex my-3"
+              >
+                Submit
+              </button>
               <!-- <button
                 type="button"
                 class="btn btn-secondary"

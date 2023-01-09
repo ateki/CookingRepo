@@ -223,6 +223,7 @@ label:checked {
     color: black !important;
 }
 
+/** results section **/
 #recipe-results .container {
     max-width: 1400px !important;
 }
@@ -236,10 +237,13 @@ label:checked {
 }
 
 #recipe-results .recipe-link-section i {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #cdae00;
 }
 #recipe-results .recipe-link-section i:hover {
     cursor: pointer;
     color: #e4c412;
+}
+#recipe-results a.card-link {
+    text-decoration: dashed !important;
 }

@@ -47,6 +47,8 @@ function getSearchOptions(ingredientsArray) {
 
   searchObj.apiKey = API_KEY;
 
+  searchObj.fillIngredients = true;
+
   searchObj.addRecipeInformation = true;
 
   return searchObj;
@@ -405,7 +407,8 @@ function setupEventListeners() {
     location.reload(true);
   });
 
-  $('.favourite-icon-hollow').hover(
+  // event listener for hovering over fave icon
+  $('.recipe-link-section i').hover(
     function () {
       $(this).removeClass('far');
       $(this).addClass('fas');
@@ -415,6 +418,28 @@ function setupEventListeners() {
       $(this).addClass('far');
     }
   );
+
+  // event listener for clicking fave icon
+  $('.recipe-link-section i').click(function () {
+    if ($(this).hasClass('not-starred')) {
+      $(this)
+        .unbind('mouseenter mouseleave')
+        .removeClass('far not-starred')
+        .addClass('fas starred');
+    } else {
+      $(this)
+        .removeClass('fas starred')
+        .addClass('far not-starred')
+        .bind('mouseenter', function () {
+          $(this).removeClass('far');
+          $(this).addClass('fas');
+        })
+        .bind('mouseleave', function () {
+          $(this).removeClass('fas');
+          $(this).addClass('far');
+        });
+    }
+  });
 }
 
 /** ----------------------------------------

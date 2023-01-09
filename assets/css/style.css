@@ -245,5 +245,8 @@ label:checked {
     color: #e4c412;
 }
 #recipe-results a.card-link {
-    text-decoration: dashed !important;
+    border-bottom: 2px dashed #007bff;
+}
+#recipe-results a.card-link:hover {
+    border-bottom: 2px dashed #0056b3;
 }

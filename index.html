@@ -545,10 +545,7 @@
             <div class="card-body">
               <h5 class="card-title">Walnut Lentil Burgers with Tarragon</h5>
               <!-- <p class="card-text">
-                The recipe Walnut Lentil Burgers with Tarragon is ready in
-                around around 45 minutes and is definitely an awesome gluten
-                free, dairy free, and lacto ovo vegetarian option for lovers of
-                American food.
+                it's difficult to extract a clean, short summary from API
               </p> -->
             </div>
             <ul class="list-group list-group-flush">
@@ -561,8 +558,9 @@
               </li>
               <li class="list-group-item"><strong>Serves:</strong> 4</li>
               <li class="list-group-item">
-                <strong>Cooking time:</strong> 45 mins
+                <strong>Cooking time:</strong> 45 minutes
               </li>
+              <li class="list-group-item">link to API recipe card?</li>
             </ul>
             <div
               class="card-body row align-items-center justify-content-between recipe-link-section"
@@ -578,65 +576,37 @@
           </div>
 
           <div class="card col-lg-3 col-md-4 col-sm-6 my-2">
-            <img
-              src="https://spoonacular.com/recipeImages/661121-312x231.jpg"
-              class="card-img-top"
-              alt="..."
-            />
+            <img src="#" class="card-img-top" alt="matchObj.image" />
             <div class="card-body">
-              <h5 class="card-title">Spicy Lemongrass Soup</h5>
+              <h5 class="card-title">matchObj.title</h5>
               <!-- <p class="card-text">
-                Spicy Lemongrass Soup requires roughly about 45 minutes from
-                start to finish.
-              </p> -->
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">mushrooms</li>
-              <li class="list-group-item">rice noodles</li>
-              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
-            </ul>
-            <div class="card-body">
-              <a href="#" class="card-link">Add to planner</a>
-              <a
-                href="https://spoonacular.com/spicy-lemongrass-soup-661121"
-                class="card-link"
-                target="_blank"
-                >View recipe</a
-              >
-            </div>
-          </div>
-
-          <div class="card col-lg-3 col-md-4 col-sm-6 my-2">
-            <img
-              src="https://spoonacular.com/recipeImages/655570-312x231.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">
-                Penne Con Funghi E Melanzane (Penne With Mushrooms and Eggplant)
-              </h5>
-              <!-- <p class="card-text">
-                Penne Con Funghi E Melanzane (Penne With Mushrooms and Eggplant)
-                might be just the main course you are searching for.
+                it's difficult to extract a clean, short summary from API
               </p> -->
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                <strong>lacto ovo vegetarian</strong>
+                <strong>Includes:</strong>
+                matchObj.usedIngredients.map(ingredient =>
+                ingredient.name).join(', ')
               </li>
-              <li class="list-group-item">mushrooms</li>
-              <li class="list-group-item">penne</li>
-              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+              <li class="list-group-item">
+                <strong>Diets:</strong> matchObj.diets.join(', ')
+              </li>
+              <li class="list-group-item">
+                <strong>Serves:</strong> matchObj.servings
+              </li>
+              <li class="list-group-item">
+                <strong>Cooking time:</strong> matchObj.readyInMinutes minutes
+              </li>
+              <li class="list-group-item">link to API recipe card?</li>
             </ul>
-            <div class="card-body">
-              <a href="#" class="card-link">Add to planner</a>
-              <a
-                href="https://spoonacular.com/penne-con-funghi-e-melanzane-penne-with-mushrooms-and-eggplant-655570"
-                class="card-link"
-                target="_blank"
-                >View recipe</a
+            <div
+              class="card-body row align-items-center justify-content-between recipe-link-section"
+            >
+              <a href="#" class="card-link" target="_blank"
+                >matchObj.spoonacularSourceUrl</a
               >
+              <i class="far fa-star not-starred" alt="fave icon"></i>
             </div>
           </div>
         </div>

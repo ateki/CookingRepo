@@ -40,7 +40,13 @@ body {
     background-color: var(--body-background) !important;
 }
 
+
+a {
+    color: var(--font-dark) !important;
+}
+
 /* GLOBAL CLASSES */
+
 
 
 /* TODO: Decide if to keep default card light border

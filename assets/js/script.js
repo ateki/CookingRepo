@@ -323,6 +323,7 @@ function displayRecipeResults(matchedRecipes) {
             </div>
         `); */
 
+        
         recipeResultsSection.append(`
         <div class="card card-recipe" style="width: 18rem;">
             <img src="${matchObj.image}", class="card-img-top" alt="...">

@@ -4,15 +4,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootstrap -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rochester&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rochester&display=swap" rel="stylesheet">
     <title>Cooking App</title>
   </head>
   <body>
@@ -35,49 +49,49 @@
         </div>
       </nav>
       <div class="container">
-        <h1 class="display-4">
-          Welcome!<span id="name-header-text"></span> <br />
-          <div id="slogan">Simple and fast recipe inspiration! <br />
-          <div id="slogandetail">Use our basic search to browse recipes by ingredients, or sign up to get recipes tailored to your specific dietary requirements!  </div>
-        </div>
-        </h1>
-        <p class="lead">
-          <div id="quoteContainer">
-            <p id="quote"></p>
+        <h1 class="display-4" id="name-header-text">Welcome!</h1>
+        <br />
+        <div id="slogan">
+          Simple and fast recipe inspiration! <br />
+          <div id="slogandetail">
+            Use our basic search to browse recipes by ingredients, or sign up to
+            get recipes tailored to your specific dietary requirements!
           </div>
-        </p>
-        <button
-          type="button"
-          id="btnjumbo"
-          class="btn btn-primary"
-          onclick="location.href='#anchor-find-recipes'"
-          aria-label="Start searching for recipes"
-        >
-          Start browsing
-        </button>
+        </div>
+
+        <div class="jumbo-buttons row align-items-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#signUpModal"
+            id="cta-button"
+          >
+            Sign-up Now!
+          </button>
+          <span id="lowkey-link"
+            >&nbsp;&nbsp;<a href="#section-recipe-search"
+              >Get Searching</a
+            ></span
+          >
+          <!-- <button
+            type="button"
+            id="btnjumbo"
+            class="btn btn-primary"
+            onclick="location.href='#anchor-find-recipes'"
+            aria-label="Start searching for recipes"
+          >
+            Or Get Searching
+          </button> -->
+        </div>
+
+        <div id="quoteContainer">
+          <p id="quote"></p>
+        </div>
       </div>
-      
     </div>
 
-   
-
-    <!-- a Call To Action div asking user to sign up so they can refine their search. This will not appear if the user has signed in. the id's are important as are the data-toggle and data-target attributes for the button. everything else can change in terms of style and layout -->
-    <div class="container-fluid text-center py-3" id="cta-panel">
-      <h5>Sign-up to refine your search!</h5>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#signUpModal"
-        id="cta-button"
-      >
-        Sign-up Now!
-      </button>
-    </div>
-
-    <section class="section-recipe-search">
-      <a name="anchor-find-recipes"></a>
-
+    <section class="section-recipe-search" id="section-recipe-search">
       <form id="search-form">
         <div class="container-fluid" style="max-width: 1400px">
           <!-- Row of Ingredients -->
@@ -518,6 +532,89 @@
 
     <section class="recipe-results"></section>
 
+    <section id="dummy-recipe-results">
+      <div class="container">
+        <h1 class="text-center">Dummy Results</h1>
+        <p class="text-center">Comment this out!</p>
+
+        <div class="row">
+          <div class="card col-lg-3 col-md-4 col-sm-6 my-2">
+            <img
+              src="https://spoonacular.com/recipeImages/664929-312x231.png"
+              class="card-img-top"
+              alt="image of food"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Walnut Lentil Burgers with Tarragon</h5>
+              <!-- <p class="card-text">
+                it's difficult to extract a clean, short summary from API
+              </p> -->
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Includes:</strong> cooked green lentils, button
+                mushrooms
+              </li>
+              <li class="list-group-item">
+                <strong>Diets:</strong> vegetarian, vegan
+              </li>
+              <li class="list-group-item"><strong>Serves:</strong> 4</li>
+              <li class="list-group-item">
+                <strong>Cooking time:</strong> 45 minutes
+              </li>
+              <li class="list-group-item">link to API recipe card?</li>
+            </ul>
+            <div
+              class="card-body row align-items-center justify-content-between recipe-link-section"
+            >
+              <a
+                href="https://spoonacular.com/walnut-lentil-burgers-with-tarragon-664929"
+                class="card-link"
+                target="_blank"
+                >View recipe</a
+              >
+              <i class="far fa-star not-starred" alt="fave icon"></i>
+            </div>
+          </div>
+
+          <div class="card col-lg-3 col-md-4 col-sm-6 my-2">
+            <img src="#" class="card-img-top" alt="matchObj.image" />
+            <div class="card-body">
+              <h5 class="card-title">matchObj.title</h5>
+              <!-- <p class="card-text">
+                it's difficult to extract a clean, short summary from API
+              </p> -->
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Includes:</strong>
+                matchObj.usedIngredients.map(ingredient =>
+                ingredient.name).join(', ')
+              </li>
+              <li class="list-group-item">
+                <strong>Diets:</strong> matchObj.diets.join(', ')
+              </li>
+              <li class="list-group-item">
+                <strong>Serves:</strong> matchObj.servings
+              </li>
+              <li class="list-group-item">
+                <strong>Cooking time:</strong> matchObj.readyInMinutes minutes
+              </li>
+              <li class="list-group-item">link to API recipe card?</li>
+            </ul>
+            <div
+              class="card-body row align-items-center justify-content-between recipe-link-section"
+            >
+              <a href="#" class="card-link" target="_blank"
+                >matchObj.spoonacularSourceUrl</a
+              >
+              <i class="far fa-star not-starred" alt="fave icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- modal -->
     <div
       class="modal fade"
@@ -529,7 +626,7 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header card-header">
             <h5 class="modal-title" id="signUpLabel">Sign-Up Form</h5>
             <button
               type="button"
@@ -542,10 +639,10 @@
           </div>
           <div class="modal-body">
             <!-- modal form -->
-            <form>
+            <form class="card-body-filter">
               <!-- form fields -->
               <div class="form-group">
-                <label for="name">Name</label>
+                <label class="modal-group-title" for="name">Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -556,7 +653,7 @@
               </div>
 
               <div class="form-group" id="intolerances-group">
-                <label>Intolerances</label>
+                <label class="modal-group-title">Intolerances</label>
                 <div class="row">
                   <div class="col">
                     <div class="form-check">
@@ -630,7 +727,7 @@
               </div>
 
               <div class="form-group" id="cuisine-group">
-                <label>Preferred Cuisines</label>
+                <label class="modal-group-title">Preferred Cuisines</label>
                 <div class="row">
                   <div class="col">
                     <div class="form-check">
@@ -704,7 +801,7 @@
               </div>
 
               <div class="form-group" id="diet-group">
-                <label>Diets subscribed to</label>
+                <label class="modal-group-title">Diets subscribed to</label>
                 <div class="row">
                   <div class="col">
                     <div class="form-check">
@@ -780,7 +877,12 @@
               </div>
 
               <!-- submit and close buttons -->
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button
+                type="submit"
+                class="justify-center btn btn-primary btn-lg mx-auto d-flex my-3"
+              >
+                Submit
+              </button>
               <!-- <button
                 type="button"
                 class="btn btn-secondary"
@@ -795,39 +897,51 @@
     </div>
     <footer>
       <div id="formContainer">
-          <form id="footer">
-              <div class="form-group">
-                  <h3 class="co">Get in touch!</h3>
-                  <label for="exampleInputEmail1" class="formLabel">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                      else.</small>
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1" class="formLabel">Your message</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="9"></textarea>
-              </div>
-              <button type="submit" id='contactbtn' class="btn btn-primary">Submit</button>
-              <div id="icons">
-                  <a class='socialLMedia' href="https://linkedin.com">
-                      <i class="fa-brands fa-linkedin-in"></i>
-                  </a>
-                  <a class='socialLMedia' href=https://github.com/ateki/CookingRepo>
-                      <i class="fa-brands fa-github"></i>
-                  </a>
-                  <a class='socialLMedia' href=https://instagram.com>
-                      <i class="fa-brands fa-instagram"></i>
-                  </a>
-                  <p id="copyright">CookingApp &copy 2023 - All rights reserved</p>
-              </div>
-              
-          </form>
+        <form id="footer">
+          <div class="form-group">
+            <h3 class="co">Get in touch!</h3>
+            <label for="exampleInputEmail1" class="formLabel"
+              >Email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1" class="formLabel"
+              >Your message</label
+            >
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="9"
+            ></textarea>
+          </div>
+          <button type="submit" id="contactbtn" class="btn btn-primary">
+            Submit
+          </button>
+          <div id="icons">
+            <a class="socialLMedia" href="https://linkedin.com">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a class="socialLMedia" href="https://github.com/ateki/CookingRepo">
+              <i class="fab fa-github"></i>
+            </a>
+            <a class="socialLMedia" href="https://instagram.com">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <p id="copyright">CookingApp &copy 2023 - All rights reserved</p>
+          </div>
+        </form>
       </div>
-  </footer>
-</body>
-</html>
-
+    </footer>
 
     <!-- jquery -->
     <script

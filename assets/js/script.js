@@ -22,11 +22,20 @@ function pullUserData() {
     .attr('href', 'favourites.html')
     .removeAttr('data-toggle data-target');
 
-  // hide the cta panel
-  $('#cta-panel').addClass('hide');
+  // change button area in jumbotron
+  $('.jumbo-buttons').html('');
+  $('.jumbo-buttons').append(`
+  <a
+    class="btn btn-primary"
+    href="#section-recipe-search"
+    style="margin-left:0"
+  >
+    Get Searching!
+  </a>
+  `);
 
   // show user's name in jumbotron
-  $('#name-header-text').text(`, ${userData.name}`);
+  $('#name-header-text').text(`Welcome, ${userData.name}!`);
 
   // clear modal html
   $('#signUpModal').html('');
@@ -46,6 +55,8 @@ function getSearchOptions(ingredientsArray) {
   searchObj.includeIngredients = ingredientsArray.join(',');
 
   searchObj.apiKey = API_KEY;
+
+  searchObj.fillIngredients = true;
 
   searchObj.addRecipeInformation = true;
 
@@ -138,15 +149,10 @@ const ENDPOINT = '/recipes/complexSearch';
 const URL_ROOT = 'https://api.spoonacular.com';
 const URL_COMPLEX_SEARCH = `${URL_ROOT}${ENDPOINT}/?apiKey=${API_KEY}`;
 
-
 /* QUOTE API INFO */
 // Quotes API
 const QUOTE_API_KEY = 'G7WSJKvp0JWC+uwIDsPbcw==JgAbmTJn20cHUWLX';
 const URL_GET_QUOTE = 'https://api.api-ninjas.com/v1/quotes?category=food';
-
-
-
-
 
 /* Note of other poss APIs:
 1) recipe card
@@ -409,40 +415,66 @@ function setupEventListeners() {
     // refresh the page
     location.reload(true);
   });
+
+  // event listener for hovering over fave icon
+  $('.recipe-link-section i').hover(
+    function () {
+      $(this).removeClass('far');
+      $(this).addClass('fas');
+    },
+    function () {
+      $(this).removeClass('fas');
+      $(this).addClass('far');
+    }
+  );
+
+  // event listener for clicking fave icon
+  $('.recipe-link-section i').click(function () {
+    if ($(this).hasClass('not-starred')) {
+      $(this)
+        .unbind('mouseenter mouseleave')
+        .removeClass('far not-starred')
+        .addClass('fas starred');
+    } else {
+      $(this)
+        .removeClass('fas starred')
+        .addClass('far not-starred')
+        .bind('mouseenter', function () {
+          $(this).removeClass('far');
+          $(this).addClass('fas');
+        })
+        .bind('mouseleave', function () {
+          $(this).removeClass('fas');
+          $(this).addClass('far');
+        });
+    }
+  });
 }
-
-
-
 
 /** ----------------------------------------
  * QUOTE Functionality
  * -----------------------------------------*/
 
-function displayQuote(quote,author) {
-
-    var quoteOut = document.querySelector('#quote');
-    quoteOut.textContent = quote + "  " + "-" + "  "   + author;
+function displayQuote(quote, author) {
+  var quoteOut = document.querySelector('#quote');
+  quoteOut.textContent = quote + '  ' + '-' + '  ' + author;
 }
-
 
 function getCookingQuote() {
+  $.ajax({
+    headers: {
+      'X-Api-Key': QUOTE_API_KEY,
+    },
+    url: URL_GET_QUOTE,
+  }).then(function (data) {
+    var quote = data[0].quote;
+    var author = data[0].author;
 
-    $.ajax({
-        headers: {
-          'X-Api-Key': QUOTE_API_KEY,
-        },
-        url: URL_GET_QUOTE,
-      }).then(function (data) {
-        var quote = data[0].quote;
-        var author = data[0].author;
-      
-        console.log(quote, author);
-      
-        displayQuote(quote, author);
- 
-      });
+    console.log(quote, author);
+
+    displayQuote(quote, author);
+  });
 }
-
 
 /** ----------------------------------------
  * Init onload functionality - to be triggered on page load.
@@ -457,8 +489,3 @@ function init() {
 }
 
 init();
-
-
-
-
-

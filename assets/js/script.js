@@ -59,58 +59,12 @@ function getSearchOptions(ingredientsArray) {
   searchObj.fillIngredients = true;
 
   searchObj.addRecipeInformation = true;
+  searchObj.fillIngredients = true;
+  searchObj.number=NUM_RECIPES_TO_DISPLAY;
 
   return searchObj;
 }
 
-/***************************** delete below **************************************/
-// // Function to run on page load
-// function init() {
-//   pullUserData();
-
-//   // event listener for modal form
-//   $('#signUpModal form').submit(function (event) {
-//     event.preventDefault();
-
-//     // grab inputs
-//     var name = $('#name').val();
-//     var checkedIntolerances = [];
-//     $('#intolerances-group input:checkbox:checked').each(function () {
-//       checkedIntolerances.push($(this).val());
-//     });
-//     var checkedDiets = [];
-//     $('#diet-group input:checkbox:checked').each(function () {
-//       checkedDiets.push($(this).val());
-//     });
-//     var checkedCuisines = [];
-//     $('#cuisine-group input:checkbox:checked').each(function () {
-//       checkedCuisines.push($(this).val());
-//     });
-
-//     // use grabbed inputs to update tracking variable
-//     userData = {
-//       name: name,
-//     };
-//     if (checkedIntolerances.length > 0) {
-//       userData['intolerances'] = checkedIntolerances.join(',');
-//     }
-//     if (checkedDiets.length > 0) {
-//       userData['diet'] = checkedDiets.join('|');
-//     }
-//     if (checkedCuisines.length > 0) {
-//       userData['cuisine'] = checkedCuisines.join(',');
-//     }
-
-//     // update local storage
-//     updateLocalStorage();
-
-//     // refresh the page
-//     location.reload(true);
-//   });
-// }
-
-// init();
-/***************************** delete above **************************************/
 
 /**-------------------------------------------------------------
  *
@@ -144,10 +98,18 @@ const recipeResultsSection = $('.recipe-results');
 
 /* SPOON API INFO */
 const API_KEY = 'aac3e4c1bc0b41578a0fc33aaa9b481a';
-const ENDPOINT = '/recipes/complexSearch';
+const ENDPOINT_COMPLEX_SEARCH = '/recipes/complexSearch';
+// const ENDPOINT_FIND_BY_INGREDIENTS = '/recipes/findByIngredients';
+const ENDPOINT_GET_RECIPE_CARD_URL = '/card';
 
 const URL_ROOT = 'https://api.spoonacular.com';
-const URL_COMPLEX_SEARCH = `${URL_ROOT}${ENDPOINT}/?apiKey=${API_KEY}`;
+const URL_COMPLEX_SEARCH = `${URL_ROOT}${ENDPOINT_COMPLEX_SEARCH}/?apiKey=${API_KEY}`;
+/* const URL_FINDBY_INGREDIENTS = `${URL_ROOT}${ENDPOINT_FIND_BY_INGREDIENTS}/?apiKey=${API_KEY}`; */
+
+const URL_GET_RECIPE_CARD = `${URL_ROOT}/`;
+
+
+const NUM_RECIPES_TO_DISPLAY = 1;
 
 /* QUOTE API INFO */
 // Quotes API
@@ -294,6 +256,7 @@ function displayRecipeResults(matchedRecipes) {
 
   if (!matchedRecipes) {
     recipeResultsSection.html('<p class="no-search" >No results found</p>');
+    return;
   }
 
   console.log(matchedRecipes);
@@ -303,6 +266,12 @@ function displayRecipeResults(matchedRecipes) {
     console.log(`title: ${matchObj.title}
                 image: ${matchObj.image}
                 id: ${matchObj.id}
+                Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')}
+                Diets: ${matchObj.diets}
+                Serves:${matchObj.servings}
+                Cooking time: ${matchObj.readyInMinutes} minutes
+                recipe card : https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY} 
+                View recipe: ${matchObj.spoonacularSourceUrl}
             `);
 
     /**
@@ -310,22 +279,77 @@ function displayRecipeResults(matchedRecipes) {
      * URL: https://api.spoonacular.com/recipes/729366/card?apiKey=aac3e4c1bc0b41578a0fc33aaa9b481a
      * data.url will provide image urfor card
      * Dynamically put this in receip link
+     * 
+     * create function getRecipeCardUrl(id) {
+     * 
+     * // returns url which needs to be embedded below
+     * }
      */
+    /*
+        <h5 class="card-title">Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')}</h5>
+    */
+   // GRAB get card url and then take the 
 
     recipeResultsSection.append(`
                 <div class="card card-recipe" style="width: 18rem;">
                     <img src="${matchObj.image}", class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">${matchObj.title}</h5>
-                    <h5 class="card-title">${matchObj.id}</h5>
-                    <p class="card-text">Can we get some brief recipe description</p>
-                    <a href="https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY}" class="card-link">RecipeCard link</a>
-                    <a href="${matchObj.spoonacularSourceUrl}" target="_blank">Recipe link</a>
+                    <h5 class="card-title">Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')} </h5>
+                    <h5 class="card-title">Diets: ${matchObj.diets}</h5>
+                    <h5 class="card-title">Serves: ${matchObj.servings}</h5>
+                    <h5 class="card-title">Cooking time: ${matchObj.readyInMinutes} minutes</h5>
+                    <a class="card-link recipe-card-link" href="https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY}" target="_blank">Summary Recipe Card </a>
+                    <a class="card-link" href="${matchObj.spoonacularSourceUrl}" target="_blank">Recipe</a>
                     </div>
                 </div>
             `);
+
+            // Update url of Recipe card
+            // can we put placeholder in the above and then populate it in jquery
+            
   }
+  
 }
+
+/*
+             /<p class="card-text"> ${matchObj.summary}</p>
+                    <a class="card-link" href="${matchObj.summary}" target="">Summary</a> 
+       
+                    <a class="card-link" href='javascript:displayRecipeSummary('${matchObj.summary}');' >Summary</a>
+*/
+
+/* function displayRecipeSummary(summary) {
+
+    alert(summary);
+
+}
+ */
+
+/**
+ * Retrieves URL for recipe card
+ * NOTE: This will therefore take a further call to api and cost!
+ *  @param {} id - of recipe as returned in search results
+ */
+/* function getRecipeCardUrl(id) {
+    console.log(`getFilteredRecipes entered...`);
+
+    var URL = `${URL_GET_RECIPE_CARD}&id=${`id`}/ENDPOINT_CARD}&id=${id}/${ENDPOINT_CARD}&apiKey=${API_KEY}`;
+
+    
+
+
+    $.get(`${URL}`).then(function (data) {
+        console.log(data.url);
+
+        // update image part of link
+        displayRecipeResults(data.results);
+      });
+      show(recipeResultsSection);
+
+
+} */
+
 
 /**
  * Retrieves recipes from API and displays
@@ -334,6 +358,7 @@ function displayRecipeResults(matchedRecipes) {
 function getFilteredRecipes(eventObj) {
   console.log(`getFilteredRecipes entered...`);
 
+  recipeResultsSection.html('');
   eventObj.preventDefault();
   //e.stopPropagation();
 
@@ -347,11 +372,16 @@ function getFilteredRecipes(eventObj) {
   // TODO: validate user input and provide feedback if necessary
   if (ingredients.length === 0) {
     alert('please select at least one option');
+    // choose if alert or on page to display error
+    recipeResultsSection.html('<p class="no-search" >Please select at least one option</p>');
     return;
   }
 
   var searchOptions = getSearchOptions(ingredients);
   console.log(searchOptions);
+  console.log(`findby ingredients url = ${URL_COMPLEX_SEARCH}
+  searchOptions = ${searchOptions}`);
+
 
   // API call and display
   // var URL = `${URL_COMPLEX_SEARCH}&includeIngredients=${ingredients.join(
@@ -359,7 +389,7 @@ function getFilteredRecipes(eventObj) {
   // )}`;
   // console.log(URL);
   // $.get(`${URL}`).then(function (data) {
-  $.get(`${URL_ROOT}${ENDPOINT}`, searchOptions).then(function (data) {
+  $.get(`${URL_COMPLEX_SEARCH}`, searchOptions).then(function (data) {
     console.log(data);
     displayRecipeResults(data.results);
   });

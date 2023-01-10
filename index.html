@@ -18,6 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Rochester&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@1,700&family=Roboto:wght@100&family=Rubik+80s+Fade&family=Sansita+Swashed&display=swap" rel="stylesheet">
     <!-- font awesome 5.15.4 -->
     <link
       rel="stylesheet"
@@ -33,18 +34,23 @@
     <div class="jumbotron jumbotron-fluid">
       <nav class="n">
         <div class="fl">
-          <a id="home-link" class="c nav-item nav-link active" href="#"
-            >Home <span class="sr-only">(current)</span></a
-          >
-          <a
-            id="user-link"
-            class="c nav-item nav-link"
-            href="#"
-            data-toggle="modal"
-            data-target="#signUpModal"
-            >Sign up!</a
-          >
-          <a id="contact-link" class="c nav-item nav-link" href="#formContainer">Contact</a>
+          <div id="logo">
+            CookingApp
+           </div>
+          <div id="navbar">
+           <a id="home-link" class="c nav-item nav-link active" href="#"
+             >Home <span class="sr-only">(current)</span></a
+           >
+           <a
+             id="user-link"
+             class="c nav-item nav-link"
+             href="#"
+             data-toggle="modal"
+             data-target="#signUpModal"
+             >Sign up!</a
+           >
+           <a id="contact-link" class="c nav-item nav-link" href="#formContainer">Contact</a>
+         </div>
         </div>
       </nav>
       <div class="container">
@@ -924,9 +930,29 @@
               rows="9"
             ></textarea>
           </div>
-          <button type="submit" id="contactbtn" class="btn btn-primary">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Submit
           </button>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Thank you for your message!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  We will be in touch soon.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div id="icons">
             <a class="socialLMedia" href="https://linkedin.com">
               <i class="fab fa-linkedin-in"></i>

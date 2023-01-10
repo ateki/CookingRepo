@@ -64,7 +64,7 @@ div.row {
 }
 
 label {
-    color: green !important;
+    color: darkgray !important;
     color: --var(font-dark) !important;
 }
 
@@ -241,11 +241,20 @@ label:checked {
 
 .fl {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     color: black;
 }
 
+#navbar {
+    display:flex;
+}
 
+#logo {
+  margin-left: 30px;
+  margin-top: 10px;
+  font-family: 'Lobster Two', cursive;
+  font-size: 2em;
+}
 .display-4 {
     margin-left: 400px;
     margin-top: 100px;
@@ -256,6 +265,7 @@ label:checked {
 }
 
 #quoteContainer {
+    margin-top: 100px;
     margin-left: 400px;
     font-family: 'Rochester', cursive;
 }
@@ -376,6 +386,7 @@ form.card-body-filter {
 #lowkey-link {
     font-size: 1rem;
     color: darkgray;
+    border: black;
 }
 #lowkey-link a {
     color: #f6af2c;
@@ -390,9 +401,7 @@ form.card-body-filter {
     height: 500px;
     margin: auto;
     margin-top: 100px;
-    background-color: rgb(237, 235, 235);
-    padding: 5px;
-     
+    background-color: rgb(237, 235, 235);   
 }
 
 #formContainer {
@@ -440,6 +449,8 @@ form.card-body-filter {
 .socialLMedia {
     color: rgb(248, 86, 68);
 }
+
+
 
 /* MEDIA QUERIES */
 

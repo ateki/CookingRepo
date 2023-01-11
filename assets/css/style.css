@@ -18,6 +18,7 @@
     --secondary-dark:#f85644;
 
     --font-dark: rgb(91, 137, 120);
+    --font-dark-dark: rgb(62, 95, 83);
     --font-light: white;
 }
 
@@ -160,20 +161,75 @@ label:checked {
 }
 
 
-.card-recipe {
-   
-   /* border: 5px dotted var(--primary-dark) !important; */
-    border-block-color: var(--primary-light) !important;
-    /* background-color: var(--body-background) !important; */
-    background-color: var(--secondary-dark) !important;
-  }
 
-  .recipe-results {
+/** results section **/
+/* #recipe-results .container {
+    max-width: 1400px !important;
+}
+
+#recipe-results .card-body {
+    padding: 10px 0px 10px 0px !important;
+}
+
+#recipe-results .list-group-item {
+    padding: 0.75rem 10px !important;
+} */
+
+   
+.recipe-results {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
+
+.recipe-results .card-recipe, .recipe-results li.list-group-item {
+    border-block-color: var(--primary-light) !important;
+    background-color: var(--secondary-dark) !important; 
+  }
+
+.recipe-results .card-recipe {
+    color: var(--primary-dark);
+  }
+
+.recipe-results li.list-group-item {
+    color: var(--primary-light) !important;
+    /* padding: 0.75rem 10px !important; */
+}
+
+
+.recipe-results a.card-link {
+    /* color: var(--primary-light) !important; */
+     /* color: var(--primary-dark) !important; */
+
+    color: var(--font-dark) !important;
+    border-bottom: 2px dashed var(--font-dark) !important;
+}
+
+
+.recipe-results a.card-link:hover {
+/*     color: var(--font-dark) !important;
+    border-bottom: 2px dashed var(--font-dark);  */
+    
+    color: var(--primary-dark) !important;
+    border-bottom: 2px dashed var(--primary-dark) !important; 
+}
+
+
+.recipe-results .recipe-link-section i {
+    font-size: 1.4rem;
+   /*  color: var(--primary-light); */
+    /* color:orange; */
+    color:rgb(0, 128, 23) ;
+}
+
+.recipe-results .recipe-link-section i:hover {
+    cursor: pointer;
+    /* color: #e4c412 !important; */
+    color: rgb(255, 251, 0) ;
+}
+
+
   
 .jumbotron {
     min-height: 600px;
@@ -266,11 +322,13 @@ label:checked {
 
 #dummy-recipe-results .recipe-link-section i {
     font-size: 1.4rem;
-    color: #cdae00;
+    /* color: #cdae00; */
+    color: purple;
 }
 #dummy-recipe-results .recipe-link-section i:hover {
     cursor: pointer;
-    color: #e4c412;
+   /*  color: #e4c412; */
+    color: red;
 }
 #dummy-recipe-results a.card-link {
     border-bottom: 2px dashed #007bff;

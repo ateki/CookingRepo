@@ -109,7 +109,7 @@ const URL_COMPLEX_SEARCH = `${URL_ROOT}${ENDPOINT_COMPLEX_SEARCH}/?apiKey=${API_
 const URL_GET_RECIPE_CARD = `${URL_ROOT}/`;
 
 
-const NUM_RECIPES_TO_DISPLAY = 1;
+const NUM_RECIPES_TO_DISPLAY = 6;
 
 /* QUOTE API INFO */
 // Quotes API
@@ -256,6 +256,8 @@ function displayRecipeResults(matchedRecipes) {
 
   if (!matchedRecipes) {
     recipeResultsSection.html('<p class="no-search" >No results found</p>');
+    recipeResultsSection.html('<p class="no-search" >Please select at least one option</p>');
+   
     return;
   }
 
@@ -290,9 +292,9 @@ function displayRecipeResults(matchedRecipes) {
     */
    // GRAB get card url and then take the 
 
-    recipeResultsSection.append(`
-                <div class="card card-recipe" style="width: 18rem;">
-                    <img src="${matchObj.image}", class="card-img-top" alt="...">
+/*     recipeResultsSection.append(`
+                 <div class="card card-recipe" style="width: 18rem;">
+                    <img src="${matchObj.image}", class="card-img-top" alt="image of food">
                     <div class="card-body">
                     <h5 class="card-title">${matchObj.title}</h5>
                     <h5 class="card-title">Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')} </h5>
@@ -303,7 +305,46 @@ function displayRecipeResults(matchedRecipes) {
                     <a class="card-link" href="${matchObj.spoonacularSourceUrl}" target="_blank">Recipe</a>
                     </div>
                 </div>
-            `);
+            `); */
+
+   /*          recipeResultsSection.append(`
+            <div class="card card-recipe" style="width: 18rem;">
+                <img src="${matchObj.image}", class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">${matchObj.title}</h5>
+                <h5 class="card-title"><strong>Includes:<strong> ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')} </h5>
+                <h5 class="card-title"><strong>Diets:<strong> ${matchObj.diets}</h5>
+                <h5 class="card-title"><strong>Serves:<strong> ${matchObj.servings}</h5>
+                <h5 class="card-title"><strong>Cooking time:<strong> ${matchObj.readyInMinutes} minutes</h5>
+                <a class="card-link recipe-card-link" href="https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY}" target="_blank">Summary Recipe Card </a>
+                <a class="card-link" href="${matchObj.spoonacularSourceUrl}" target="_blank">Recipe</a>
+                <i class="far fa-star not-starred" alt="fave icon"></i>
+                </div>
+            </div>
+        `); */
+
+        
+        recipeResultsSection.append(`
+        <div class="card card-recipe" style="width: 18rem;">
+            <img src="${matchObj.image}", class="card-img-top" alt="...">
+            <div class="card-body">
+              <h4 class="card-title">${matchObj.title}</h4>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item card-recipe-list-item"><strong>Includes:</strong> ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')} </li>
+                <li class="list-group-item card-recipe-list-item"><strong>Diets:</strong> ${matchObj.diets}</li>
+                <li class="list-group-item card-recipe-list-item"><strong>Serves:</strong> ${matchObj.servings}</li>
+                <li class="list-group-item card-recipe-list-item"><strong>Cooking time:</strong> ${matchObj.readyInMinutes} minutes</li>
+              </ul>
+              <div class="card-body row align-items-center justify-content-between recipe-link-section">
+                <a class="card-link card-recipe-link" href="${matchObj.spoonacularSourceUrl}" target="_blank">View recipe</a>
+                <i class="far fa-star not-starred" alt="fave icon"></i>
+              </div>
+            </div>
+        </div>
+    `);
+
+       
 
             // Update url of Recipe card
             // can we put placeholder in the above and then populate it in jquery
@@ -371,8 +412,6 @@ function getFilteredRecipes(eventObj) {
 
   // TODO: validate user input and provide feedback if necessary
   if (ingredients.length === 0) {
-    alert('please select at least one option');
-    // choose if alert or on page to display error
     recipeResultsSection.html('<p class="no-search" >Please select at least one option</p>');
     return;
   }
@@ -446,9 +485,9 @@ function setupEventListeners() {
     location.reload(true);
   });
 
+
   // event listener for hovering over fave icon
-  $('.recipe-link-section i').hover(
-    function () {
+    $('.recipe-link-section i').hover(function () {
       $(this).removeClass('far');
       $(this).addClass('fas');
     },
@@ -457,7 +496,7 @@ function setupEventListeners() {
       $(this).addClass('far');
     }
   );
-
+  
   // event listener for clicking fave icon
   $('.recipe-link-section i').click(function () {
     if ($(this).hasClass('not-starred')) {

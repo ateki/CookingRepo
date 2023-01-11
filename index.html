@@ -18,7 +18,10 @@
       href="https://fonts.googleapis.com/css2?family=Rochester&display=swap"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@1,700&family=Roboto:wght@100&family=Rubik+80s+Fade&family=Sansita+Swashed&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@1,700&family=Roboto:wght@100&family=Rubik+80s+Fade&family=Sansita+Swashed&display=swap"
+      rel="stylesheet"
+    />
     <!-- font awesome 5.15.4 -->
     <link
       rel="stylesheet"
@@ -34,23 +37,26 @@
     <div class="jumbotron jumbotron-fluid">
       <nav class="n">
         <div class="fl">
-          <div id="logo">
-            CookingApp
-           </div>
+          <div id="logo">CookingApp</div>
           <div id="navbar">
-           <a id="home-link" class="c nav-item nav-link active" href="#"
-             >Home <span class="sr-only">(current)</span></a
-           >
-           <a
-             id="user-link"
-             class="c nav-item nav-link"
-             href="#"
-             data-toggle="modal"
-             data-target="#signUpModal"
-             >Sign up!</a
-           >
-           <a id="contact-link" class="c nav-item nav-link" href="#formContainer">Contact</a>
-         </div>
+            <a id="home-link" class="c nav-item nav-link active" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+            <a
+              id="contact-link"
+              class="c nav-item nav-link"
+              href="#formContainer"
+              >Contact</a
+            >
+            <a
+              id="user-link"
+              class="c nav-item nav-link"
+              href="#"
+              data-toggle="modal"
+              data-target="#signUpModal"
+              >Sign up</a
+            >
+          </div>
         </div>
       </nav>
       <div class="container">
@@ -535,10 +541,9 @@
       </form>
     </section>
 
-    
     <section class="recipe-results"></section>
 
-    <section id="dummy-recipe-results">
+    <!-- <section id="dummy-recipe-results">
       <div class="container">
         <h1 class="text-center">Dummy Results</h1>
         <p class="text-center">Comment this out!</p>
@@ -552,9 +557,6 @@
             />
             <div class="card-body">
               <h5 class="card-title">Walnut Lentil Burgers with Tarragon</h5>
-              <!-- <p class="card-text">
-                it's difficult to extract a clean, short summary from API
-              </p> -->
             </div>
             <ul class="list-group list-group-flush card-recipe-list">
               <li class="list-group-item">
@@ -564,11 +566,15 @@
               <li class="list-group-item">
                 <strong>Diets:</strong> vegetarian, vegan
               </li>
-              <li class="list-group-item card-recipe-list-item"><strong>Serves:</strong> 4</li>
+              <li class="list-group-item card-recipe-list-item">
+                <strong>Serves:</strong> 4
+              </li>
               <li class="list-group-item card-recipe-list-item">
                 <strong>Cooking time:</strong> 45 minutes
               </li>
-              <li class="list-group-item card-recipe-list-item">link to API recipe card?</li>
+              <li class="list-group-item card-recipe-list-item">
+                link to API recipe card?
+              </li>
             </ul>
             <div
               class="card-body row align-items-center justify-content-between recipe-link-section"
@@ -587,9 +593,6 @@
             <img src="#" class="card-img-top" alt="matchObj.image" />
             <div class="card-body">
               <h5 class="card-title">matchObj.title</h5>
-              <!-- <p class="card-text">
-                it's difficult to extract a clean, short summary from API
-              </p> -->
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -619,7 +622,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- modal -->
     <div
@@ -883,12 +886,16 @@
               </div>
 
               <!-- submit and close buttons -->
-              <button
-                type="submit"
-                class="justify-center btn btn-primary btn-lg mx-auto d-flex my-3"
-              >
-                Submit
-              </button>
+              <div class="text-center" id="modal-button-container">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-lg mb-3"
+                  id="modal-form-submit-button"
+                >
+                  Submit
+                </button>
+              </div>
+
               <!-- <button
                 type="button"
                 class="btn btn-secondary"
@@ -901,6 +908,52 @@
         </div>
       </div>
     </div>
+
+    <!-- delete account modal -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteLabel">Delete account</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete? This cannot be undone.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="delete-account-button"
+            >
+              Confirm delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <div id="formContainer">
         <form id="footer">
@@ -930,25 +983,48 @@
               rows="9"
             ></textarea>
           </div>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >
             Submit
           </button>
-          
+
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Thank you for your message!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Thank you for your message!
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  We will be in touch soon.
-                </div>
+                <div class="modal-body">We will be in touch soon.</div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </div>

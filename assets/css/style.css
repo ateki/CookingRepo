@@ -63,9 +63,11 @@ div.row {
     margin: 10px;
 }
 
-label {
+footer label {
     color: darkgray !important;
-    color: --var(font-dark) !important;
+}
+label {
+    color: var(--font-dark) !important;
 }
 
 /* TODO: Change label color if selected */
@@ -303,7 +305,7 @@ label:checked {
     padding-bottom: 100px !important;
 }
 
-#signUpModal label {
+#signUpModal label, #settingsModal label {
     color: black !important;
 }
 
@@ -337,21 +339,25 @@ label:checked {
     border-bottom: 2px dashed #0056b3;
 }
 
-#signUpModal label.modal-group-title {
+#signUpModal label.modal-group-title, #settingsModal label.modal-group-title {
     font-size: 1.25rem;
     color: var(--secondary-dark) !important;
     margin-left: 25px;
     margin-bottom: 0;
 }
-#signUpModal .form-group {
+#signUpModal .form-group, #settingsModal .form-group {
     border: 1px solid var(--secondary-dark) !important;
     margin: 10px;
     padding: 10px;
     border-radius:25px;
 }
-#signUpModal .form-check-label {
+#signUpModal .form-check-label, #settingsModal .form-check-label {
     color: green !important;
 }
+
+
+
+
 #name {
     color: green;
     width: calc(100% - 50px); /* what a palaver */
@@ -367,9 +373,20 @@ label:checked {
 }
 
 form.card-body-filter {
-    border-radius: 25px;;
+    border-radius: 25px;
 }
 
+#delete-account {
+    color: #94beae !important;
+    margin:10px;
+    border-bottom: 2px dashed #94beae;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+#delete-account:hover {
+    color: var(--font-dark) !important;
+    border-bottom: 2px dashed var(--font-dark);
+}
 
 .jumbo-buttons {
     margin-left: 400px !important;
@@ -383,14 +400,17 @@ form.card-body-filter {
 .jumbo-buttons button {
     margin: 0;
 }
+.jumbo-buttons a {
+    color: white !important;
+}
 #lowkey-link {
     font-size: 1rem;
     color: darkgray;
     border: black;
 }
 #lowkey-link a {
-    color: #f6af2c;
-    border-bottom: 2px dashed #f6af2c;;
+    color: #f6af2c !important;
+    border-bottom: 2px dashed #f6af2c;
     text-decoration: none;
 }
 

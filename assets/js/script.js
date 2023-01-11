@@ -1,6 +1,57 @@
 // Global tracking variable
 var userData = {};
 
+// Function to switch sign-up
+function switchSignUpModalToSettingsModal() {
+  // let's change the id to reflect the change we're making here
+  var modal = $('#signUpModal');
+  modal.attr('id', 'settingsModal');
+
+  // resets
+  $('#name').val('');
+  $('#settingsModal .form-check-input').each(function () {
+    $(this).prop('checked', false);
+  });
+
+  // for each stored data item, use it to update form
+  $('#name').val(userData.name);
+  if (userData.hasOwnProperty('diet')) {
+    var storedDiets = userData.diet.split('|');
+    storedDiets.forEach(function (diet) {
+      $(`#${diet}`).prop('checked', true);
+    });
+  }
+  if (userData.hasOwnProperty('intolerances')) {
+    var storedIntolerances = userData.intolerances.split(',');
+    storedIntolerances.forEach(function (intolerance) {
+      $(`#${intolerance}`).prop('checked', true);
+    });
+  }
+  if (userData.hasOwnProperty('cuisine')) {
+    var storedCuisines = userData.cuisine.split(',');
+    storedCuisines.forEach(function (cuisine) {
+      $(`#${cuisine}`).prop('checked', true);
+    });
+  }
+
+  $('#modal-form-submit-button').text('Update');
+
+  $('#signUpLabel').text('Update Preferences');
+
+  $('#modal-button-container')
+    .addClass('row justify-content-between align-items-end')
+    .append(
+      `<a
+         href="#"
+         id="delete-account"
+         class="mb-3"
+         data-dismiss="modal"
+         data-toggle="modal"
+         data-target="#deleteModal"
+       >Delete account</button>`
+    );
+}
+
 // Function to update local storage user data
 function updateLocalStorage() {
   localStorage.setItem('user_data', JSON.stringify(userData));
@@ -17,10 +68,17 @@ function pullUserData() {
   }
 
   // change the a link in navbar
-  $('#user-link')
-    .text('Favourites')
-    .attr('href', 'favourites.html')
-    .removeAttr('data-toggle data-target');
+  $('#user-link').text('').append(`Settings <i class="fas fa-cog"></i>`).attr({
+    href: '#',
+    'data-toggle': 'modal',
+    'data-target': '#settingsModal',
+  });
+  // .removeAttr('data-toggle data-target');
+
+  // change slogan to reflect search is boosted
+  $('#slogandetail').text(
+    'Your search is now power-boosted! Select your ingredients to find the perfect recipe tailored to your needs!'
+  );
 
   // change button area in jumbotron
   $('.jumbo-buttons').html('');
@@ -37,8 +95,8 @@ function pullUserData() {
   // show user's name in jumbotron
   $('#name-header-text').text(`Welcome, ${userData.name}!`);
 
-  // clear modal html
-  $('#signUpModal').html('');
+  // alter sign-up modal to become settings modal
+  switchSignUpModalToSettingsModal();
 }
 
 function getSearchOptions(ingredientsArray) {
@@ -60,11 +118,10 @@ function getSearchOptions(ingredientsArray) {
 
   searchObj.addRecipeInformation = true;
   searchObj.fillIngredients = true;
-  searchObj.number=NUM_RECIPES_TO_DISPLAY;
+  searchObj.number = NUM_RECIPES_TO_DISPLAY;
 
   return searchObj;
 }
-
 
 /**-------------------------------------------------------------
  *
@@ -107,7 +164,6 @@ const URL_COMPLEX_SEARCH = `${URL_ROOT}${ENDPOINT_COMPLEX_SEARCH}/?apiKey=${API_
 /* const URL_FINDBY_INGREDIENTS = `${URL_ROOT}${ENDPOINT_FIND_BY_INGREDIENTS}/?apiKey=${API_KEY}`; */
 
 const URL_GET_RECIPE_CARD = `${URL_ROOT}/`;
-
 
 const NUM_RECIPES_TO_DISPLAY = 6;
 
@@ -243,6 +299,43 @@ function getUsersDietPrefs(eventObj) {
   return diets;
 }
 
+// icon event listeners
+function addIconEventListeners() {
+  // event listener for hovering over fave icon
+  $('.recipe-link-section i').hover(
+    function () {
+      $(this).removeClass('far');
+      $(this).addClass('fas');
+    },
+    function () {
+      $(this).removeClass('fas');
+      $(this).addClass('far');
+    }
+  );
+
+  // event listener for clicking fave icon
+  $('.recipe-link-section i').click(function () {
+    if ($(this).hasClass('not-starred')) {
+      $(this)
+        .unbind('mouseenter mouseleave')
+        .removeClass('far not-starred')
+        .addClass('fas starred');
+    } else {
+      $(this)
+        .removeClass('fas starred')
+        .addClass('far not-starred')
+        .bind('mouseenter', function () {
+          $(this).removeClass('far');
+          $(this).addClass('fas');
+        })
+        .bind('mouseleave', function () {
+          $(this).removeClass('fas');
+          $(this).addClass('far');
+        });
+    }
+  });
+}
+
 /**
  * Add to DOM recipe results
  * Call a presentation layer?
@@ -256,8 +349,10 @@ function displayRecipeResults(matchedRecipes) {
 
   if (!matchedRecipes) {
     recipeResultsSection.html('<p class="no-search" >No results found</p>');
-    recipeResultsSection.html('<p class="no-search" >Please select at least one option</p>');
-   
+    recipeResultsSection.html(
+      '<p class="no-search" >Please select at least one option</p>'
+    );
+
     return;
   }
 
@@ -268,11 +363,15 @@ function displayRecipeResults(matchedRecipes) {
     console.log(`title: ${matchObj.title}
                 image: ${matchObj.image}
                 id: ${matchObj.id}
-                Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')}
+                Includes: ${matchObj.usedIngredients
+                  .map((ingredient) => ingredient.name)
+                  .join(',')}
                 Diets: ${matchObj.diets}
                 Serves:${matchObj.servings}
                 Cooking time: ${matchObj.readyInMinutes} minutes
-                recipe card : https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY} 
+                recipe card : https://api.spoonacular.com/recipes/${
+                  matchObj.id
+                }/card?apiKey=${API_KEY} 
                 View recipe: ${matchObj.spoonacularSourceUrl}
             `);
 
@@ -281,33 +380,41 @@ function displayRecipeResults(matchedRecipes) {
      * URL: https://api.spoonacular.com/recipes/729366/card?apiKey=aac3e4c1bc0b41578a0fc33aaa9b481a
      * data.url will provide image urfor card
      * Dynamically put this in receip link
-     * 
+     *
      * create function getRecipeCardUrl(id) {
-     * 
+     *
      * // returns url which needs to be embedded below
      * }
      */
     /*
         <h5 class="card-title">Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')}</h5>
     */
-   // GRAB get card url and then take the 
+    // GRAB get card url and then take the
 
-/*     recipeResultsSection.append(`
+    /*     recipeResultsSection.append(`
                  <div class="card card-recipe" style="width: 18rem;">
                     <img src="${matchObj.image}", class="card-img-top" alt="image of food">
                     <div class="card-body">
                     <h5 class="card-title">${matchObj.title}</h5>
-                    <h5 class="card-title">Includes: ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')} </h5>
+                    <h5 class="card-title">Includes: ${matchObj.usedIngredients
+                      .map((ingredient) => ingredient.name)
+                      .join(',')} </h5>
                     <h5 class="card-title">Diets: ${matchObj.diets}</h5>
                     <h5 class="card-title">Serves: ${matchObj.servings}</h5>
-                    <h5 class="card-title">Cooking time: ${matchObj.readyInMinutes} minutes</h5>
-                    <a class="card-link recipe-card-link" href="https://api.spoonacular.com/recipes/${matchObj.id}/card?apiKey=${API_KEY}" target="_blank">Summary Recipe Card </a>
-                    <a class="card-link" href="${matchObj.spoonacularSourceUrl}" target="_blank">Recipe</a>
+                    <h5 class="card-title">Cooking time: ${
+                      matchObj.readyInMinutes
+                    } minutes</h5>
+                    <a class="card-link recipe-card-link" href="https://api.spoonacular.com/recipes/${
+                      matchObj.id
+                    }/card?apiKey=${API_KEY}" target="_blank">Summary Recipe Card </a>
+                    <a class="card-link" href="${
+                      matchObj.spoonacularSourceUrl
+                    }" target="_blank">Recipe</a>
                     </div>
                 </div>
             `); */
 
-   /*          recipeResultsSection.append(`
+    /*          recipeResultsSection.append(`
             <div class="card card-recipe" style="width: 18rem;">
                 <img src="${matchObj.image}", class="card-img-top" alt="...">
                 <div class="card-body">
@@ -323,34 +430,40 @@ function displayRecipeResults(matchedRecipes) {
             </div>
         `); */
 
-        
-        recipeResultsSection.append(`
+    recipeResultsSection.append(`
         <div class="card card-recipe" style="width: 18rem;">
             <img src="${matchObj.image}", class="card-img-top" alt="...">
             <div class="card-body">
               <h4 class="card-title">${matchObj.title}</h4>
 
               <ul class="list-group list-group-flush">
-                <li class="list-group-item card-recipe-list-item"><strong>Includes:</strong> ${matchObj.usedIngredients.map(ingredient => ingredient.name).join(',')} </li>
-                <li class="list-group-item card-recipe-list-item"><strong>Diets:</strong> ${matchObj.diets}</li>
-                <li class="list-group-item card-recipe-list-item"><strong>Serves:</strong> ${matchObj.servings}</li>
-                <li class="list-group-item card-recipe-list-item"><strong>Cooking time:</strong> ${matchObj.readyInMinutes} minutes</li>
+                <li class="list-group-item card-recipe-list-item"><strong>Includes:</strong> ${matchObj.usedIngredients
+                  .map((ingredient) => ingredient.name)
+                  .join(',')} </li>
+                <li class="list-group-item card-recipe-list-item"><strong>Diets:</strong> ${matchObj.diets.join(
+                  ', '
+                )}</li>
+                <li class="list-group-item card-recipe-list-item"><strong>Serves:</strong> ${
+                  matchObj.servings
+                }</li>
+                <li class="list-group-item card-recipe-list-item"><strong>Cooking time:</strong> ${
+                  matchObj.readyInMinutes
+                } minutes</li>
               </ul>
               <div class="card-body row align-items-center justify-content-between recipe-link-section">
-                <a class="card-link card-recipe-link" href="${matchObj.spoonacularSourceUrl}" target="_blank">View recipe</a>
+                <a class="card-link card-recipe-link" href="${
+                  matchObj.spoonacularSourceUrl
+                }" target="_blank">View recipe</a>
                 <i class="far fa-star not-starred" alt="fave icon"></i>
               </div>
             </div>
         </div>
     `);
 
-       
-
-            // Update url of Recipe card
-            // can we put placeholder in the above and then populate it in jquery
-            
+    // Update url of Recipe card
+    // can we put placeholder in the above and then populate it in jquery
   }
-  
+  addIconEventListeners();
 }
 
 /*
@@ -391,7 +504,6 @@ function displayRecipeResults(matchedRecipes) {
 
 } */
 
-
 /**
  * Retrieves recipes from API and displays
  * @param {} eventObj
@@ -412,7 +524,9 @@ function getFilteredRecipes(eventObj) {
 
   // TODO: validate user input and provide feedback if necessary
   if (ingredients.length === 0) {
-    recipeResultsSection.html('<p class="no-search" >Please select at least one option</p>');
+    recipeResultsSection.html(
+      '<p class="no-search" >Please select at least one option</p>'
+    );
     return;
   }
 
@@ -420,7 +534,6 @@ function getFilteredRecipes(eventObj) {
   console.log(searchOptions);
   console.log(`findby ingredients url = ${URL_COMPLEX_SEARCH}
   searchOptions = ${searchOptions}`);
-
 
   // API call and display
   // var URL = `${URL_COMPLEX_SEARCH}&includeIngredients=${ingredients.join(
@@ -442,6 +555,47 @@ function getFilteredRecipes(eventObj) {
   /*    console.log(`API call returned = ${searchResults}`); */
 }
 
+// function to handle save/update user data
+function saveOrUpdateUserData() {
+  // grab inputs
+  var name = $('#name').val();
+  var checkedIntolerances = [];
+  $('#intolerances-group input:checkbox:checked').each(function () {
+    checkedIntolerances.push($(this).val());
+  });
+  var checkedDiets = [];
+  $('#diet-group input:checkbox:checked').each(function () {
+    checkedDiets.push($(this).val());
+  });
+  var checkedCuisines = [];
+  $('#cuisine-group input:checkbox:checked').each(function () {
+    checkedCuisines.push($(this).val());
+  });
+
+  // reset user data variable, in case of updating
+  userData = {};
+
+  // use grabbed inputs to update tracking variable
+  userData = {
+    name: name,
+  };
+  if (checkedIntolerances.length > 0) {
+    userData['intolerances'] = checkedIntolerances.join(',');
+  }
+  if (checkedDiets.length > 0) {
+    userData['diet'] = checkedDiets.join('|');
+  }
+  if (checkedCuisines.length > 0) {
+    userData['cuisine'] = checkedCuisines.join(',');
+  }
+
+  // update local storage
+  updateLocalStorage();
+
+  // refresh the page
+  location.reload(true);
+}
+
 function setupEventListeners() {
   findRecipesBtn.click(getFilteredRecipes);
 
@@ -449,74 +603,21 @@ function setupEventListeners() {
   $('#signUpModal form').submit(function (event) {
     event.preventDefault();
 
-    // grab inputs
-    var name = $('#name').val();
-    var checkedIntolerances = [];
-    $('#intolerances-group input:checkbox:checked').each(function () {
-      checkedIntolerances.push($(this).val());
-    });
-    var checkedDiets = [];
-    $('#diet-group input:checkbox:checked').each(function () {
-      checkedDiets.push($(this).val());
-    });
-    var checkedCuisines = [];
-    $('#cuisine-group input:checkbox:checked').each(function () {
-      checkedCuisines.push($(this).val());
-    });
-
-    // use grabbed inputs to update tracking variable
-    userData = {
-      name: name,
-    };
-    if (checkedIntolerances.length > 0) {
-      userData['intolerances'] = checkedIntolerances.join(',');
-    }
-    if (checkedDiets.length > 0) {
-      userData['diet'] = checkedDiets.join('|');
-    }
-    if (checkedCuisines.length > 0) {
-      userData['cuisine'] = checkedCuisines.join(',');
-    }
-
-    // update local storage
-    updateLocalStorage();
-
-    // refresh the page
-    location.reload(true);
+    saveOrUpdateUserData();
   });
 
+  // event listener for modal form
+  $('#settingsModal form').submit(function (event) {
+    event.preventDefault();
 
-  // event listener for hovering over fave icon
-    $('.recipe-link-section i').hover(function () {
-      $(this).removeClass('far');
-      $(this).addClass('fas');
-    },
-    function () {
-      $(this).removeClass('fas');
-      $(this).addClass('far');
-    }
-  );
-  
-  // event listener for clicking fave icon
-  $('.recipe-link-section i').click(function () {
-    if ($(this).hasClass('not-starred')) {
-      $(this)
-        .unbind('mouseenter mouseleave')
-        .removeClass('far not-starred')
-        .addClass('fas starred');
-    } else {
-      $(this)
-        .removeClass('fas starred')
-        .addClass('far not-starred')
-        .bind('mouseenter', function () {
-          $(this).removeClass('far');
-          $(this).addClass('fas');
-        })
-        .bind('mouseleave', function () {
-          $(this).removeClass('fas');
-          $(this).addClass('far');
-        });
-    }
+    saveOrUpdateUserData();
+  });
+
+  // event listener for deleting account
+  $('#delete-account-button').click(function () {
+    userData = {};
+    localStorage.removeItem('user_data');
+    location.reload(true);
   });
 }
 

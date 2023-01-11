@@ -299,6 +299,43 @@ function getUsersDietPrefs(eventObj) {
   return diets;
 }
 
+// icon event listeners
+function addIconEventListeners() {
+  // event listener for hovering over fave icon
+  $('.recipe-link-section i').hover(
+    function () {
+      $(this).removeClass('far');
+      $(this).addClass('fas');
+    },
+    function () {
+      $(this).removeClass('fas');
+      $(this).addClass('far');
+    }
+  );
+
+  // event listener for clicking fave icon
+  $('.recipe-link-section i').click(function () {
+    if ($(this).hasClass('not-starred')) {
+      $(this)
+        .unbind('mouseenter mouseleave')
+        .removeClass('far not-starred')
+        .addClass('fas starred');
+    } else {
+      $(this)
+        .removeClass('fas starred')
+        .addClass('far not-starred')
+        .bind('mouseenter', function () {
+          $(this).removeClass('far');
+          $(this).addClass('fas');
+        })
+        .bind('mouseleave', function () {
+          $(this).removeClass('fas');
+          $(this).addClass('far');
+        });
+    }
+  });
+}
+
 /**
  * Add to DOM recipe results
  * Call a presentation layer?
@@ -403,9 +440,9 @@ function displayRecipeResults(matchedRecipes) {
                 <li class="list-group-item card-recipe-list-item"><strong>Includes:</strong> ${matchObj.usedIngredients
                   .map((ingredient) => ingredient.name)
                   .join(',')} </li>
-                <li class="list-group-item card-recipe-list-item"><strong>Diets:</strong> ${
-                  matchObj.diets
-                }</li>
+                <li class="list-group-item card-recipe-list-item"><strong>Diets:</strong> ${matchObj.diets.join(
+                  ', '
+                )}</li>
                 <li class="list-group-item card-recipe-list-item"><strong>Serves:</strong> ${
                   matchObj.servings
                 }</li>
@@ -426,6 +463,7 @@ function displayRecipeResults(matchedRecipes) {
     // Update url of Recipe card
     // can we put placeholder in the above and then populate it in jquery
   }
+  addIconEventListeners();
 }
 
 /*
@@ -580,40 +618,6 @@ function setupEventListeners() {
     userData = {};
     localStorage.removeItem('user_data');
     location.reload(true);
-  });
-
-  // event listener for hovering over fave icon
-  $('.recipe-link-section i').hover(
-    function () {
-      $(this).removeClass('far');
-      $(this).addClass('fas');
-    },
-    function () {
-      $(this).removeClass('fas');
-      $(this).addClass('far');
-    }
-  );
-
-  // event listener for clicking fave icon
-  $('.recipe-link-section i').click(function () {
-    if ($(this).hasClass('not-starred')) {
-      $(this)
-        .unbind('mouseenter mouseleave')
-        .removeClass('far not-starred')
-        .addClass('fas starred');
-    } else {
-      $(this)
-        .removeClass('fas starred')
-        .addClass('far not-starred')
-        .bind('mouseenter', function () {
-          $(this).removeClass('far');
-          $(this).addClass('fas');
-        })
-        .bind('mouseleave', function () {
-          $(this).removeClass('fas');
-          $(this).addClass('far');
-        });
-    }
   });
 }
 

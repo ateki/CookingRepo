@@ -4,7 +4,6 @@
 
 ![splash](https://user-images.githubusercontent.com/69313410/212091270-549420ef-4b37-4b02-ae3f-1c39e5048fc2.png)
 
-
 ## Description
 
 Welcome to our cooking inspiration app! With this app, you can quickly find the recipe for you based on the food ingredients you have to hand!
@@ -32,6 +31,12 @@ Get great recipes that uses the food items you have!
 ![signup](https://user-images.githubusercontent.com/69313410/212090006-0e58421f-da74-43eb-abe0-ddb242305aee.png)
 
 Boost your search by signing up!
+
+### Recent favourites
+
+![faves](assets/images/faves.png)
+
+Keep track of your favourite recipes!
 
 ### We love your feedback!
 

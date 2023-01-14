@@ -1,7 +1,11 @@
-// Global tracking variable
+// Global tracking variables
 var userData = {};
+var currentResults = [];
 
-// Function to switch sign-up
+// constant to show only 4 favourites
+const MAX_FAVOURITES = 4;
+
+// Function to switch modal from sign up to settings
 function switchSignUpModalToSettingsModal() {
   // let's change the id to reflect the change we're making here
   var modal = $('#signUpModal');
@@ -34,10 +38,11 @@ function switchSignUpModalToSettingsModal() {
     });
   }
 
+  // visual changes
   $('#modal-form-submit-button').text('Update');
-
   $('#signUpLabel').text('Update Preferences');
 
+  // add a delete account button
   $('#modal-button-container')
     .addClass('row justify-content-between align-items-end')
     .append(
@@ -68,16 +73,21 @@ function pullUserData() {
   }
 
   // change the a link in navbar
-  $('#user-link').text('').append(`Settings <i class="fas fa-cog"></i>`).attr({
-    href: '#',
-    'data-toggle': 'modal',
-    'data-target': '#settingsModal',
-  });
+  $('#user-link')
+    .text('')
+    .append(
+      `<span id="settings-nav-link">Settings</span> <i class="fas fa-cog"></i>`
+    )
+    .attr({
+      href: '#',
+      'data-toggle': 'modal',
+      'data-target': '#settingsModal',
+    });
   // .removeAttr('data-toggle data-target');
 
-  // change slogan to reflect search is boosted
+  // change slogan to reflect search is 'boosted'
   $('#slogandetail').text(
-    'Your search is now power-boosted! Select your ingredients to find the perfect recipe tailored to your needs!'
+    "Select your ingredients to find the perfect recipe tailored to your needs! Don't forget to star your favourites!"
   );
 
   // change button area in jumbotron
@@ -99,28 +109,237 @@ function pullUserData() {
   switchSignUpModalToSettingsModal();
 }
 
+// Function to build a search object to use for API request
 function getSearchOptions(ingredientsArray) {
   // initialise an empty object
   var searchObj = {};
 
   // if user exists, add their prefs to search
   if (Object.keys(userData).length > 0) {
+    // copy user object to search object
     Object.assign(searchObj, userData);
+    // take out the two props we don't need
     delete searchObj.name;
     delete searchObj.favourites;
   }
 
-  searchObj.includeIngredients = ingredientsArray.join(',');
-
+  // include params necessary to grab data
   searchObj.apiKey = API_KEY;
-
   searchObj.fillIngredients = true;
-
   searchObj.addRecipeInformation = true;
-  searchObj.fillIngredients = true;
   searchObj.number = NUM_RECIPES_TO_DISPLAY;
 
+  // include ingredients
+  searchObj.includeIngredients = ingredientsArray.join(',');
+
   return searchObj;
+}
+
+// Function to add recipe to favourites
+function addRecipeToFavourites(id) {
+  // find the recipe from tracking variable
+  var rawRecipeObj = currentResults.find((recipe) => recipe.id === id);
+
+  // make sure a result was found
+  if (!rawRecipeObj) {
+    console.log(`no recipe with id:${id} found in currentResults array`);
+    return;
+  }
+
+  // grab only the info from obj I want
+  var refinedRecipeObj = {
+    id: rawRecipeObj.id,
+    imgURL: rawRecipeObj.image,
+    sourceURL: rawRecipeObj.spoonacularSourceUrl,
+    title: rawRecipeObj.title,
+  };
+
+  // add recipe as most recent fave
+  userData.favourites.unshift(refinedRecipeObj);
+
+  // if total number of favourites exceeds max, take out oldest
+  if (userData.favourites.length > MAX_FAVOURITES) {
+    userData.favourites.pop();
+  }
+}
+
+// Function to delete recipe from favourites
+function deleteRecipeFromFavourites(id) {
+  userData.favourites = userData.favourites.filter(
+    (favourite) => favourite.id !== id
+  );
+}
+
+// Function to add event listeners for the favorite icons on recipe results
+function addIconEventListeners() {
+  // event listener for hovering over fave icon
+  $('.recipe-link-section i.not-starred').hover(
+    function () {
+      $(this).removeClass('far');
+      $(this).addClass('fas');
+    },
+    function () {
+      $(this).removeClass('fas');
+      $(this).addClass('far');
+    }
+  );
+
+  // event listener for clicking fave icon
+  $('.recipe-link-section i').click(function () {
+    var id = Number($(this).closest('.card-recipe').attr('id'));
+
+    if ($(this).hasClass('not-starred')) {
+      // handle style
+      $(this)
+        .unbind('mouseenter mouseleave')
+        .removeClass('far not-starred')
+        .addClass('fas starred');
+
+      // add the recipe to favourites
+      addRecipeToFavourites(id);
+
+      renderFavourites();
+
+      updateLocalStorage();
+    } else {
+      $(this)
+        .removeClass('fas starred')
+        .addClass('far not-starred')
+        .bind('mouseenter', function () {
+          $(this).removeClass('far');
+          $(this).addClass('fas');
+        })
+        .bind('mouseleave', function () {
+          $(this).removeClass('fas');
+          $(this).addClass('far');
+        });
+
+      // delete from favourites
+      deleteRecipeFromFavourites(id);
+
+      renderFavourites();
+
+      updateLocalStorage();
+    }
+  });
+}
+
+// Function to render favourites
+function renderFavourites() {
+  var favouritesEl = $('#favourites-section');
+  favouritesEl.html('');
+
+  if (userData.favourites.length === 0) {
+    $('#navbar-fave-link').remove();
+    console.log('no favourites stored');
+    return;
+  }
+
+  if (userData.favourites.length > 0) {
+    $('#navbar-fave-link').remove();
+    // finally add a navbar link
+    var navbar = $('#navbar');
+    var faveLink = $('<a>', {
+      href: '#favourites-section',
+      text: 'Faves',
+    });
+    faveLink.attr('id', 'navbar-fave-link');
+    faveLink.addClass('c nav-item nav-link');
+    faveLink.insertBefore(navbar.find('a:last'));
+  }
+
+  favouritesEl.append(
+    `<h3 class="display-4 text-center">Recent Favourites</h3>
+    <div class="row fave-row"></div>`
+  );
+
+  userData.favourites.forEach(function (favourite) {
+    favouritesEl.children('.fave-row').append(`
+    <div class="card col-sm-12 col-md-6 col-lg-3 favourite-card" data-fave-id="${favourite.id}">
+      <img src="${favourite.imgURL}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">${favourite.title}</h5>
+        <a href="${favourite.sourceURL}" target="_blank">View recipe</a>
+        <span class="delete-fave d-flex align-items-center justify-content-center">&times;</span>
+      </div>
+    </div>
+    `);
+  });
+}
+
+// Function that handles scenario where a result is also a current favourite.
+// If it is, then need to change initial behaviour of star icon
+function handleResultsThatAreAlsoFavourites() {
+  if (!userData.favourites) {
+    console.log('no stored favourites');
+    return;
+  }
+
+  var arrayOfStoredFavouriteIds = userData.favourites.map(
+    (favourite) => favourite.id
+  );
+  console.log('------');
+  console.log(arrayOfStoredFavouriteIds);
+  console.log(currentResults);
+  var arrayOfCurrentResultsIds = currentResults.map((result) => result.id);
+  console.log(arrayOfCurrentResultsIds);
+  var commonIds = arrayOfStoredFavouriteIds.filter((storedId) =>
+    arrayOfCurrentResultsIds.includes(storedId)
+  );
+  console.log(`commond ids: ${commonIds}`);
+  if (commonIds.length === 0) {
+    return;
+  }
+  for (commonID of commonIds) {
+    $(`#${commonID} i`).removeClass().addClass('fas fa-star starred');
+  }
+}
+
+// Function to handle save/update user data
+function saveOrUpdateUserData() {
+  // grab inputs
+  var name = $('#name').val();
+  var checkedIntolerances = [];
+  $('#intolerances-group input:checkbox:checked').each(function () {
+    checkedIntolerances.push($(this).val());
+  });
+  var checkedDiets = [];
+  $('#diet-group input:checkbox:checked').each(function () {
+    checkedDiets.push($(this).val());
+  });
+  var checkedCuisines = [];
+  $('#cuisine-group input:checkbox:checked').each(function () {
+    checkedCuisines.push($(this).val());
+  });
+
+  // grab the favourites, if there are any, and put it in temp variable
+  // before resetting tracking variable (in case of updating)
+  var tempFavourites = [];
+  if (Object.keys(userData).length > 0) {
+    tempFavourites = userData.favourites;
+  }
+  userData = {};
+
+  // use grabbed inputs to update tracking variable
+  userData = {
+    name: name,
+    favourites: tempFavourites,
+  };
+  if (checkedIntolerances.length > 0) {
+    userData['intolerances'] = checkedIntolerances.join(',');
+  }
+  if (checkedDiets.length > 0) {
+    userData['diet'] = checkedDiets.join('|');
+  }
+  if (checkedCuisines.length > 0) {
+    userData['cuisine'] = checkedCuisines.join(',');
+  }
+
+  // update local storage
+  updateLocalStorage();
+
+  // refresh the page
+  location.reload(true);
 }
 
 /**-------------------------------------------------------------
@@ -299,43 +518,6 @@ function getUsersDietPrefs(eventObj) {
   return diets;
 }
 
-// icon event listeners
-function addIconEventListeners() {
-  // event listener for hovering over fave icon
-  $('.recipe-link-section i').hover(
-    function () {
-      $(this).removeClass('far');
-      $(this).addClass('fas');
-    },
-    function () {
-      $(this).removeClass('fas');
-      $(this).addClass('far');
-    }
-  );
-
-  // event listener for clicking fave icon
-  $('.recipe-link-section i').click(function () {
-    if ($(this).hasClass('not-starred')) {
-      $(this)
-        .unbind('mouseenter mouseleave')
-        .removeClass('far not-starred')
-        .addClass('fas starred');
-    } else {
-      $(this)
-        .removeClass('fas starred')
-        .addClass('far not-starred')
-        .bind('mouseenter', function () {
-          $(this).removeClass('far');
-          $(this).addClass('fas');
-        })
-        .bind('mouseleave', function () {
-          $(this).removeClass('fas');
-          $(this).addClass('far');
-        });
-    }
-  });
-}
-
 /**
  * Add to DOM recipe results
  * Call a presentation layer?
@@ -431,27 +613,27 @@ function displayRecipeResults(matchedRecipes) {
         `); */
 
     recipeResultsSection.append(`
-        <div class="card card-recipe" style="width: 18rem;">
+        <div class="card card-recipe" style="width: 18rem;" id="${matchObj.id}">
             <img src="${matchObj.image}", class="card-img-top" alt="...">
             <div class="card-body">
-              <h4 class="card-title">${matchObj.title}</h4>
+              <h4 class="card-title result-recipe-title">${matchObj.title}</h4>
 
               <ul class="list-group list-group-flush">
-                <li class="list-group-item card-recipe-list-item"><strong>Includes:</strong> ${matchObj.usedIngredients
+                <li class="list-group-item card-recipe-list-item result-used-ingredients"><strong>Includes:</strong> ${matchObj.usedIngredients
                   .map((ingredient) => ingredient.name)
                   .join(',')} </li>
-                <li class="list-group-item card-recipe-list-item"><strong>Diets:</strong> ${matchObj.diets.join(
+                <li class="list-group-item card-recipe-list-item result-diets"><strong>Diets:</strong> ${matchObj.diets.join(
                   ', '
                 )}</li>
-                <li class="list-group-item card-recipe-list-item"><strong>Serves:</strong> ${
+                <li class="list-group-item card-recipe-list-item result-servings"><strong>Serves:</strong> ${
                   matchObj.servings
                 }</li>
-                <li class="list-group-item card-recipe-list-item"><strong>Cooking time:</strong> ${
+                <li class="list-group-item card-recipe-list-item result-cooking-time"><strong>Cooking time:</strong> ${
                   matchObj.readyInMinutes
                 } minutes</li>
               </ul>
               <div class="card-body row align-items-center justify-content-between recipe-link-section">
-                <a class="card-link card-recipe-link" href="${
+                <a class="card-link card-recipe-link result-spoonacular-link" href="${
                   matchObj.spoonacularSourceUrl
                 }" target="_blank">View recipe</a>
                 <i class="far fa-star not-starred" alt="fave icon"></i>
@@ -463,6 +645,17 @@ function displayRecipeResults(matchedRecipes) {
     // Update url of Recipe card
     // can we put placeholder in the above and then populate it in jquery
   }
+
+  // if user is not logged in, remove the star icons and leave function
+  if (Object.keys(userData).length === 0) {
+    $('.recipe-link-section i').remove();
+    return;
+  }
+
+  // check to see if result recipes are already favourited, if so star them
+  handleResultsThatAreAlsoFavourites();
+
+  // add event listeners to the favourite icons for each recipe result
   addIconEventListeners();
 }
 
@@ -542,8 +735,9 @@ function getFilteredRecipes(eventObj) {
   // console.log(URL);
   // $.get(`${URL}`).then(function (data) {
   $.get(`${URL_COMPLEX_SEARCH}`, searchOptions).then(function (data) {
-    console.log(data);
+    currentResults = data.results;
     displayRecipeResults(data.results);
+    // update tracking array
   });
   show(recipeResultsSection);
 
@@ -555,61 +749,18 @@ function getFilteredRecipes(eventObj) {
   /*    console.log(`API call returned = ${searchResults}`); */
 }
 
-// function to handle save/update user data
-function saveOrUpdateUserData() {
-  // grab inputs
-  var name = $('#name').val();
-  var checkedIntolerances = [];
-  $('#intolerances-group input:checkbox:checked').each(function () {
-    checkedIntolerances.push($(this).val());
-  });
-  var checkedDiets = [];
-  $('#diet-group input:checkbox:checked').each(function () {
-    checkedDiets.push($(this).val());
-  });
-  var checkedCuisines = [];
-  $('#cuisine-group input:checkbox:checked').each(function () {
-    checkedCuisines.push($(this).val());
-  });
-
-  // reset user data variable, in case of updating
-  userData = {};
-
-  // use grabbed inputs to update tracking variable
-  userData = {
-    name: name,
-  };
-  if (checkedIntolerances.length > 0) {
-    userData['intolerances'] = checkedIntolerances.join(',');
-  }
-  if (checkedDiets.length > 0) {
-    userData['diet'] = checkedDiets.join('|');
-  }
-  if (checkedCuisines.length > 0) {
-    userData['cuisine'] = checkedCuisines.join(',');
-  }
-
-  // update local storage
-  updateLocalStorage();
-
-  // refresh the page
-  location.reload(true);
-}
-
 function setupEventListeners() {
   findRecipesBtn.click(getFilteredRecipes);
 
-  // event listener for modal form
+  // event listener for sign-up modal form
   $('#signUpModal form').submit(function (event) {
     event.preventDefault();
-
     saveOrUpdateUserData();
   });
 
-  // event listener for modal form
+  // event listener for settings modal form
   $('#settingsModal form').submit(function (event) {
     event.preventDefault();
-
     saveOrUpdateUserData();
   });
 
@@ -618,6 +769,31 @@ function setupEventListeners() {
     userData = {};
     localStorage.removeItem('user_data');
     location.reload(true);
+  });
+
+  // add event listener for deleting stored fave
+  $('#favourites-section').on('click', '.delete-fave', function () {
+    var id = Number($(this).closest('.favourite-card').attr('data-fave-id'));
+    deleteRecipeFromFavourites(id);
+    updateLocalStorage();
+    renderFavourites();
+
+    // gotta deal with scenario of one of the results being starred
+    var potentialExistingStarredResult = $(`#${id}`);
+    if (potentialExistingStarredResult.length) {
+      potentialExistingStarredResult
+        .find('i')
+        .removeClass()
+        .addClass('far fa-star not-starred')
+        .bind('mouseenter', function () {
+          $(this).removeClass('far');
+          $(this).addClass('fas');
+        })
+        .bind('mouseleave', function () {
+          $(this).removeClass('fas');
+          $(this).addClass('far');
+        });
+    }
   });
 }
 
@@ -655,6 +831,8 @@ function init() {
   hide(recipeResultsSection); // ensure no results currently shown
 
   pullUserData();
+  renderFavourites();
+
   getCookingQuote();
 }
 
